@@ -1,0 +1,53 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int      @id @default(autoincrement())
+  email      String   @unique
+  password   String
+  name       String
+  role       Role     @default(HR)
+  totalDays  Int      @default(15)  // жилд олгох нийт өдөр
+  usedDays   Int      @default(0)
+  createdAt  DateTime @default(now())
+
+  requests   LeaveRequest[]
+}
+
+enum Role {
+  ADMIN
+  HR
+  EMPLOYEE
+}
+
+model LeaveRequest {
+  id         Int           @id @default(autoincrement())
+  userId     Int
+  user       User          @relation(fields: [userId], references: [id])
+  type       LeaveType
+  startDate  DateTime
+  endDate    DateTime
+  days       Int           //auto tootsno
+  reason     String
+  status     Status        @default(PENDING)
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+}
+
+enum LeaveType {
+  ANNUAL      // eeljiin amralt
+  SICK        // uvchtei
+  UNPAID      // tsalingui
+}
+
+enum Status {
+  PENDING
+  APPROVED
+  REJECTED
+}
