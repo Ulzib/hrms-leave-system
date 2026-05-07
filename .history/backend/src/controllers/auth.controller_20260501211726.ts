@@ -8,7 +8,7 @@ import nodemailer from "nodemailer";
 export const sendOtp = asyncHandler(async (req: Request, res: Response) => {
   const { email } = req.body;
 
-  //zuvhun admin burtgesen mail-eer login hiine
+  //zuvhun admin burgesen mail-eer login hiine
   const user = await prisma.user.findUnique({ where: { email } });
   if (!user) {
     res.status(400).json({ message: "Бүртгэлгүй имэйл байна" });
@@ -66,11 +66,6 @@ export const verifyOtp = asyncHandler(async (req: Request, res: Response) => {
       .json({ message: "нэг удаагийн кодын хугацаа дууссан байна" });
   }
 
-  //otp ashiglasni dra ustgah
-  await prisma.user.update({
-    where: { email },
-    data: { otp: null, otpExpiry: null },
-  });
   //token uusgeh
   const token = jwt.sign(
     { id: user.id, role: user.role },

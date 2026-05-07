@@ -3,7 +3,6 @@ import cors from "cors";
 import dotenv from "dotenv";
 import AuthRoutes from "./routes/auth.routes";
 import errorHandler from "./middleware/errorHandler";
-import LeaveRoutes from "./routes/leave.routes";
 
 dotenv.config();
 

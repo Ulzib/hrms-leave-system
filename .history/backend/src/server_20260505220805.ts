@@ -6,6 +6,7 @@ import errorHandler from "./middleware/errorHandler";
 import LeaveRoutes from "./routes/leave.routes";
 
 dotenv.config();
+console.log("JWT_SECRET:", process.env.JWT_SECRET); // шалгах
 
 const app = express();
 const PORT = process.env.PORT || 3000;

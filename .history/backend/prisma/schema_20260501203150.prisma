@@ -14,8 +14,6 @@ model User {
   profilePicture String?
   role           Role           @default(EMPLOYEE)
   hiredAt        DateTime       @default(now())
-  totalDays      Int            @default(15)
-  usedDays       Int            @default(0)
   otp            String?
   otpExpiry      DateTime?
   createdAt      DateTime       @default(now())
@@ -44,7 +42,7 @@ enum Period {
 
 model LeaveRequest {
   id            Int         @id @default(autoincrement())
-  userId        Int
+  userId        Int  //huselt grgsn hun
   user          User        @relation(fields: [userId], references: [id])
   requestTypeId Int
   requestType   RequestType @relation(fields: [requestTypeId], references: [id])

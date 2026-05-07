@@ -8,7 +8,7 @@ import nodemailer from "nodemailer";
 export const sendOtp = asyncHandler(async (req: Request, res: Response) => {
   const { email } = req.body;
 
-  //zuvhun admin burtgesen mail-eer login hiine
+  //zuvhun admin burgesen mail-eer login hiine
   const user = await prisma.user.findUnique({ where: { email } });
   if (!user) {
     res.status(400).json({ message: "Бүртгэлгүй имэйл байна" });
@@ -46,31 +46,12 @@ export const verifyOtp = asyncHandler(async (req: Request, res: Response) => {
   const { email, otp } = req.body;
 
   const user = await prisma.user.findUnique({ where: { email } });
+
   if (!user) {
     res.status(404).json({ message: "Бүртгэлтгүй имэйл байна" });
     return;
   }
 
-  if (!user.otp || !user.otpExpiry) {
-    res.status(400).json({ message: "нэг удаагийн код илгээгдээгүй байна" });
-    return;
-  }
-
-  if (user.otp !== otp) {
-    res.status(400).json({ message: "нэг удаагийн код буруу байна" });
-  }
-
-  if (new Date() > user.otpExpiry) {
-    res
-      .status(400)
-      .json({ message: "нэг удаагийн кодын хугацаа дууссан байна" });
-  }
-
-  //otp ashiglasni dra ustgah
-  await prisma.user.update({
-    where: { email },
-    data: { otp: null, otpExpiry: null },
-  });
   //token uusgeh
   const token = jwt.sign(
     { id: user.id, role: user.role },
@@ -78,8 +59,5 @@ export const verifyOtp = asyncHandler(async (req: Request, res: Response) => {
     { expiresIn: "7d" },
   );
 
-  res.json({
-    token,
-    user: { id: user.id, username: user.username, role: user.role },
-  });
+  res.json({ token, user: { id: user.id, name: user.name, role: user.role } });
 });
