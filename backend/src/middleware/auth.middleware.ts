@@ -6,18 +6,15 @@ interface JwtPayload {
   role: string;
 }
 
-declare global {
-  namespace Express {
-    interface Request {
-      user?: JwtPayload;
-    }
+//shine arga -> declare module "express-serve-static-core"
+declare module "express-serve-static-core" {
+  interface Request {
+    user?: JwtPayload;
   }
 }
 
 export const protect = (req: Request, res: Response, next: NextFunction) => {
   const token = req.headers.authorization?.split(" ")[1];
-  console.log("Token:", token);
-  console.log("JWT_SECRET:", process.env.JWT_SECRET);
 
   if (!token) {
     res.status(401).json({ message: "Нэвтрэх шаардлагатай" });

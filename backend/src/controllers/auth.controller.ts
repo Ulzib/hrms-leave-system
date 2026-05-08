@@ -1,4 +1,3 @@
-import bcrypt from "bcryptjs";
 import prisma from "../lib/prisma";
 import asyncHandler from "../middleware/asyncHandler";
 import { Request, Response } from "express";

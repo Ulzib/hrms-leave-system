@@ -5,7 +5,7 @@ import { Request, Response } from "express";
 export const createLeaveReq = asyncHandler(
   async (req: Request, res: Response) => {
     const { requestTypeId, startDate, endDate, reason } = req.body;
-    const userId = (req as any).user.id;
+    const userId = req.user!.id;
 
     const start = new Date(startDate);
     const end = new Date(endDate);
@@ -44,7 +44,7 @@ export const createLeaveReq = asyncHandler(
 //uuriin huseltuudiig harah
 export const getMyLeaveReqs = asyncHandler(
   async (req: Request, res: Response) => {
-    const userId = (req as any).user.id;
+    const userId = req.user!.id;
 
     const leaves = await prisma.leaveRequest.findMany({
       where: { userId },
