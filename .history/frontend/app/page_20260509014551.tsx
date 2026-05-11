@@ -1,9 +1,9 @@
-import LoginPage from "./(auth)/login/page";
+import EmailForm from "./(auth)/login/_components/EmailForm";
 
 const Home = () => {
   return (
     <div>
-      <LoginPage />
+      <EmailForm />
     </div>
   );
 };
