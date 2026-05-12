@@ -22,11 +22,9 @@ const LoginForm = ({ className, ...props }: LoginFormProps) => {
   const [error, setError] = useState("");
 
   //otp ilgeeh
-  const handleSubmit = async (formData: FormData) => {
+  const handleSubmit = async () => {
     setLoading(true);
     setError("");
-
-    const email = formData.get("email") as string;
 
     try {
       await api.post("/auth/send-otp", { email });
@@ -45,9 +43,11 @@ const LoginForm = ({ className, ...props }: LoginFormProps) => {
   };
 
   if (loading) {
-    <div>
-      <Spinner />
-    </div>;
+    return (
+      <div className="flex justify-center items-center p-10">
+        <Spinner />
+      </div>
+    );
   }
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -72,7 +72,7 @@ const LoginForm = ({ className, ...props }: LoginFormProps) => {
               </Field>
 
               {error && <p className="text-sm text-red-500">{error}</p>}
-              <Button type="submit" disabled={loading}>
+              <Button onClick={handleSubmit} type="submit" disabled={loading}>
                 {loading ? <Spinner /> : "Код илгээх"}
               </Button>
             </FieldGroup>
