@@ -1,0 +1,45 @@
+import { Card } from "@/components/ui/card";
+import api from "@/lib/axios";
+import { TagIcon } from "lucide-react";
+import { useEffect, useState } from "react";
+
+interface LeaveRequest {
+  id: number;
+  days: number;
+  startDate: string;
+  status: "APPROVED" | "PENDING" | "REJECTED";
+  requestType: { name: string };
+}
+
+const RequestLists = () => {
+  const [leaves, setLeaves] = useState<LeaveRequest[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchLeaves = async () => {
+      try {
+        const res = await api.get("/leaves/my-request");
+        setLeaves(res.data);
+        setLoading(true);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchLeaves();
+  }, []);
+  return (
+    <div className="flex flex-col gap-2">
+      {leaves.map((leave) => (
+        <Card className="flex-1 shadow-sm">
+          <div>
+            <TagIcon />
+            <p></p>
+          </div>
+        </Card>
+      ))}
+    </div>
+  );
+};
+export default RequestLists;

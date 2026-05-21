@@ -2,9 +2,10 @@ import Cards from "./sections/Cards";
 
 const DashboardEmp = () => {
   return (
-    <div>
+    <>
       <Cards />
-    </div>
+      <div></div>
+    </>
   );
 };
 export default DashboardEmp;
