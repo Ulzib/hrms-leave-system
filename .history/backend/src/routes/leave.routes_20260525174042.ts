@@ -20,9 +20,7 @@ router.get("/managers", protect, async (req, res) => {
   const managers = await prisma.user.findMany({
     where: { role: { in: ["HR", "ADMIN"] } },
     select: { id: true, username: true, role: true },
-    orderBy: { username: "asc" },
   });
-  res.json(managers);
 });
 
 router.get("/balance", protect, async (req, res) => {

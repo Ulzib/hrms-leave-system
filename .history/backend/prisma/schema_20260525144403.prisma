@@ -45,10 +45,9 @@ model LeaveRequest {
   id            Int         @id @default(autoincrement())
   userId        Int
   user          User        @relation("employee", fields: [userId], references: [id])
-  managerId     Int
-  manager       User        @relation("manager", fields: [managerId], references: [id])
+    manager          User        @relation("manager", fields: [managerId], references: [id])
   requestTypeId Int
-  requestType   RequestType @relation(fields: [requestTypeId], references: [id])
+  requestType   RequestType @relation("manager", fields: [requestTypeId], references: [id])
   startDate     DateTime
   endDate       DateTime
   days          Int

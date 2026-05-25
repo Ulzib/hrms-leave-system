@@ -4,8 +4,9 @@ import { Request, Response } from "express";
 
 export const createLeaveReq = asyncHandler(
   async (req: Request, res: Response) => {
-    const { requestTypeId, managerId, startDate, endDate, reason } = req.body;
+    const { requestTypeId, startDate, endDate, reason } = req.body;
     const userId = req.user!.id;
+    const managerId = req.user!.id;
     const start = new Date(startDate);
     const end = new Date(endDate);
     const days = Math.ceil(
@@ -18,15 +19,6 @@ export const createLeaveReq = asyncHandler(
     if (!requestType) {
       res.status(404).json({ message: "Чөлөөний төрөл олдсонгүй" });
       return;
-    }
-    //manager id shalgah
-    const manager = await prisma.user.findUnique({
-      where: { id: managerId },
-    });
-    if (!manager || !["HR", "ADMIN"].includes(manager.role)) {
-      res
-        .status(400)
-        .json({ message: "Хянагч олдсонгүй эсвэл эрх хүрэлцэхгүй байна" });
     }
 
     //period-s hamaaran sariin, jiliin ehnees tootsno
@@ -60,7 +52,6 @@ export const createLeaveReq = asyncHandler(
     const leaveReq = await prisma.leaveRequest.create({
       data: {
         userId,
-        managerId,
         requestTypeId,
         startDate: start,
         endDate: end,
