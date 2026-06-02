@@ -8,12 +8,6 @@ import api from "@/lib/axios";
 import { Button } from "@/components/ui/button";
 import { Send } from "lucide-react";
 import { Spinner } from "@/components/ui/spinner";
-import { toast } from "sonner";
-import LeaveTypeField from "./LeaveType";
-
-const buildDateTime = (date: string, time: string) => {
-  return `${date}T${time}:00+08:00`;
-};
 
 const LeaveRequestForm = () => {
   const [form, setForm] = useState<LeaveFormData>(INITIAL_FORM);
@@ -41,42 +35,12 @@ const LeaveRequestForm = () => {
     fetchData();
   }, []);
 
-  //ali talbar uurchlugduhud ter ued n duudagdana
+  //ali talbar uurchlugduhud duudagdana
   const handleChange = <K extends keyof LeaveFormData>(
     key: K,
     value: LeaveFormData[K],
   ) => {
     setForm((prev) => ({ ...prev, [key]: value }));
-  };
-
-  //tsag,udrin turluus hamaaran start/endDate tootsood POST hiine
-  const handleSubmit = async () => {
-    if (!form.requestTypeId || !form.type || !form.managerId) return;
-    const startDate = buildDateTime(
-      form.date,
-      form.type === "hourly" ? form.startTime : "00:00",
-    );
-    const endDate = buildDateTime(
-      form.date,
-      form.type === "hourly" ? form.endTime : "23:59",
-    );
-
-    try {
-      setLoading(true);
-      await api.post("/leave", {
-        requestTypeId: form.requestTypeId,
-        managerId: form.managerId,
-        startDate,
-        endDate,
-        reason: form.reason,
-      });
-      setShowSuccess(true);
-    } catch (err) {
-      toast.error("Хүсэлт илгээх явцад алдаа гарлаа");
-      console.error("Алдаа гарлаа: ", err);
-    } finally {
-      setLoading(false);
-    }
   };
 
   if (loading) {
@@ -105,16 +69,8 @@ const LeaveRequestForm = () => {
           balances={balances}
           onChange={(val) => handleChange("requestTypeId", val)}
         />
-        {form.requestTypeId && (
-          <>
-            <LeaveTypeField
-              value={form.type}
-              onChange={(val) => handleChange("type", val)}
-            />
-          </>
-        )}
 
-        <Button className="ml-auto text-sm font-medium leading-5 tracking-normal py-5 px-4 gap-2 opacity-20 rounded-md text-[#FAFAFA]">
+        <Button className="ml-auto py-2 px-4 gap-2 opacity-20 rounded-md">
           <Send />
           {loading ? <Spinner /> : "Хүсэлт илгээх"}
         </Button>

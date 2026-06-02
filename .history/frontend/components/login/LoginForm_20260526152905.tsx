@@ -36,7 +36,7 @@ const LoginForm = ({ className, ...props }: LoginFormProps) => {
       router.push("/verify-otp");
     } catch (err) {
       if (axios.isAxiosError(err)) {
-        toast.error(err.response?.data?.message || "Алдаа гарлаа");
+        setError(err.response?.data?.message || "Алдаа гарлаа");
       } else {
         setError("Алдаа гарлаа");
       }
@@ -74,6 +74,7 @@ const LoginForm = ({ className, ...props }: LoginFormProps) => {
                 />
               </Field>
 
+              {error && <p className="text-sm text-red-500">{error}</p>}
               <Button onClick={handleSubmit} type="submit" disabled={loading}>
                 {loading ? <Spinner /> : "Нэвтрэх"}
               </Button>

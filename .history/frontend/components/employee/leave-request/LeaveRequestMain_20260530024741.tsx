@@ -8,8 +8,6 @@ import api from "@/lib/axios";
 import { Button } from "@/components/ui/button";
 import { Send } from "lucide-react";
 import { Spinner } from "@/components/ui/spinner";
-import { toast } from "sonner";
-import LeaveTypeField from "./LeaveType";
 
 const buildDateTime = (date: string, time: string) => {
   return `${date}T${time}:00+08:00`;
@@ -41,7 +39,7 @@ const LeaveRequestForm = () => {
     fetchData();
   }, []);
 
-  //ali talbar uurchlugduhud ter ued n duudagdana
+  //ali talbar uurchlugduhud duudagdana
   const handleChange = <K extends keyof LeaveFormData>(
     key: K,
     value: LeaveFormData[K],
@@ -72,10 +70,7 @@ const LeaveRequestForm = () => {
       });
       setShowSuccess(true);
     } catch (err) {
-      toast.error("Хүсэлт илгээх явцад алдаа гарлаа");
-      console.error("Алдаа гарлаа: ", err);
-    } finally {
-      setLoading(false);
+      toast.error;
     }
   };
 
@@ -105,14 +100,6 @@ const LeaveRequestForm = () => {
           balances={balances}
           onChange={(val) => handleChange("requestTypeId", val)}
         />
-        {form.requestTypeId && (
-          <>
-            <LeaveTypeField
-              value={form.type}
-              onChange={(val) => handleChange("type", val)}
-            />
-          </>
-        )}
 
         <Button className="ml-auto text-sm font-medium leading-5 tracking-normal py-5 px-4 gap-2 opacity-20 rounded-md text-[#FAFAFA]">
           <Send />

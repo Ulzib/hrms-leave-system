@@ -10,7 +10,6 @@ import { useState } from "react";
 import api from "@/lib/axios";
 import { Spinner } from "../ui/spinner";
 import { toast } from "sonner";
-import axios from "axios";
 
 interface LoginFormProps extends React.ComponentPropsWithoutRef<"div"> {
   className?: string;
@@ -34,12 +33,8 @@ const LoginForm = ({ className, ...props }: LoginFormProps) => {
         description: "Нэг удаагийн кодыг таны имэйл рүү илгээлээ.",
       });
       router.push("/verify-otp");
-    } catch (err) {
-      if (axios.isAxiosError(err)) {
-        toast.error(err.response?.data?.message || "Алдаа гарлаа");
-      } else {
-        setError("Алдаа гарлаа");
-      }
+    } catch (err: any) {
+      setError(err.response?.data?.message || "Алдаа гарлаа");
     } finally {
       setLoading(false);
     }
@@ -74,6 +69,7 @@ const LoginForm = ({ className, ...props }: LoginFormProps) => {
                 />
               </Field>
 
+              {error && <p className="text-sm text-red-500">{error}</p>}
               <Button onClick={handleSubmit} type="submit" disabled={loading}>
                 {loading ? <Spinner /> : "Нэвтрэх"}
               </Button>
