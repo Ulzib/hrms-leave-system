@@ -51,7 +51,7 @@ const RequestLists = ({ selectedDate }: RequestListsProps) => {
     fetchLeaves();
   }, []);
 
-  //req shuuh
+  //req shuuh 
   let filteredLeaves = leaves;
   if (selectedDate?.from) {
     const from = selectedDate.from;
@@ -63,18 +63,12 @@ const RequestLists = ({ selectedDate }: RequestListsProps) => {
   }
 
   //
-  const getDate = (dateDtr: string) => {
-    const date = new Date(dateDtr);
-    const today = new Date();
+  const getDate = (dateDtr: string)=>{
+    const date = new Date(dateDtr)
+    const today = new Date()
 
-    const difMs = today.getTime() - date.getTime();
-    const difDays = Math.floor(difMs / (1000 * 60 * 60 * 24));
-
-    if (difDays === 0) return "Өнөөдөр";
-    if (difDays === 1) return "Өчигдөр";
-    if (difDays === 2) return "Уржигдар";
-    return null;
-  };
+    const 
+  }
 
   if (filteredLeaves.length === 0) {
     return (
@@ -96,15 +90,11 @@ const RequestLists = ({ selectedDate }: RequestListsProps) => {
         const date = new Date(leave.createdAt);
         const month = String(date.getMonth() + 1).padStart(2, "0");
         const day = String(date.getDate()).padStart(2, "0");
-        const label = getDate(leave.createdAt);
 
         return (
           <div key={leave.id} className="flex flex-col gap-1">
-            <p className="flex  items-center gap-2 text-base font-medium leading-7 tracking-normal ">
+            <p className="text-base font-medium leading-7 tracking-normal">
               {month}/{day}
-              <p className="text-sm font-normal leading-5 tracking-normal text-muted-foreground">
-                {label && label}
-              </p>
             </p>
             <Card className="flex-1  p-6 rounded-xl">
               <div className="flex flex-col gap-2 ">

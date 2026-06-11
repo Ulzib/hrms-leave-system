@@ -21,30 +21,24 @@ interface PickDateProps {
 
 const PickDate = ({ selectedDate, onDateChange }: PickDateProps) => {
   let dateLabel = "Өдөр сонгох";
-
-  if (selectedDate?.from && selectedDate?.to) {
-    dateLabel = `${format(selectedDate.from, "MM/dd")} - ${format(selectedDate.to, "MM/dd")}`;
-  } else if (selectedDate?.from) {
-    dateLabel = format(selectedDate.from, "MM/dd");
-  }
   return (
     <Field className="w-72">
       <Popover>
         <PopoverTrigger asChild>
           <Button
             variant="outline"
-            className="flex justify-center py-5 font-normal"
+            id="date-picker"
+            className="justify-center py-5 font-normal"
           >
             <CalendarIcon />
-            {dateLabel}
+            <span>Өдөр сонгох</span>
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-auto p-0" align="start">
           <Calendar
-            mode="range"
+            mode="single"
             selected={selectedDate}
             onSelect={onDateChange}
-            numberOfMonths={2}
           />
         </PopoverContent>
       </Popover>

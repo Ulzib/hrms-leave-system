@@ -96,15 +96,12 @@ const RequestLists = ({ selectedDate }: RequestListsProps) => {
         const date = new Date(leave.createdAt);
         const month = String(date.getMonth() + 1).padStart(2, "0");
         const day = String(date.getDate()).padStart(2, "0");
-        const label = getDate(leave.createdAt);
+        const label = getDate;
 
         return (
           <div key={leave.id} className="flex flex-col gap-1">
-            <p className="flex  items-center gap-2 text-base font-medium leading-7 tracking-normal ">
+            <p className="text-base font-medium leading-7 tracking-normal">
               {month}/{day}
-              <p className="text-sm font-normal leading-5 tracking-normal text-muted-foreground">
-                {label && label}
-              </p>
             </p>
             <Card className="flex-1  p-6 rounded-xl">
               <div className="flex flex-col gap-2 ">

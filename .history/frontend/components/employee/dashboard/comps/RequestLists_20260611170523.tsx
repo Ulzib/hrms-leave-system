@@ -32,6 +32,11 @@ const getStatusColor = (status: string) => {
   return "bg-red-100 text-red-600";
 };
 
+const isSameDay = (a: Date, b: Date) =>
+  a.getFullYear() === b.getFullYear() &&
+  a.getMonth() === b.getMonth() &&
+  a.getDate() === b.getDate();
+
 const RequestLists = ({ selectedDate }: RequestListsProps) => {
   const [leaves, setLeaves] = useState<LeaveRequest[]>([]);
   const [loading, setLoading] = useState(false);
@@ -51,30 +56,7 @@ const RequestLists = ({ selectedDate }: RequestListsProps) => {
     fetchLeaves();
   }, []);
 
-  //req shuuh
-  let filteredLeaves = leaves;
-  if (selectedDate?.from) {
-    const from = selectedDate.from;
-    const to = selectedDate.to ?? from; //neg udriin chuluu shuune
-    filteredLeaves = leaves.filter((leave) => {
-      const date = new Date(leave.startDate);
-      return date >= from && date <= to; //from - to hurtelh chuluug shuune
-    });
-  }
-
-  //
-  const getDate = (dateDtr: string) => {
-    const date = new Date(dateDtr);
-    const today = new Date();
-
-    const difMs = today.getTime() - date.getTime();
-    const difDays = Math.floor(difMs / (1000 * 60 * 60 * 24));
-
-    if (difDays === 0) return "Өнөөдөр";
-    if (difDays === 1) return "Өчигдөр";
-    if (difDays === 2) return "Уржигдар";
-    return null;
-  };
+  const filteredLeaves= selectedDate?.from? leaves.filter()
 
   if (filteredLeaves.length === 0) {
     return (
@@ -91,22 +73,18 @@ const RequestLists = ({ selectedDate }: RequestListsProps) => {
     );
   }
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-2">
       {filteredLeaves.map((leave) => {
         const date = new Date(leave.createdAt);
         const month = String(date.getMonth() + 1).padStart(2, "0");
         const day = String(date.getDate()).padStart(2, "0");
-        const label = getDate(leave.createdAt);
 
         return (
-          <div key={leave.id} className="flex flex-col gap-1">
-            <p className="flex  items-center gap-2 text-base font-medium leading-7 tracking-normal ">
+          <div key={leave.id}>
+            <p>
               {month}/{day}
-              <p className="text-sm font-normal leading-5 tracking-normal text-muted-foreground">
-                {label && label}
-              </p>
             </p>
-            <Card className="flex-1  p-6 rounded-xl">
+            <Card className="flex-1 border p-6 rounded-xl">
               <div className="flex flex-col gap-2 ">
                 <div className="flex items-center gap-2">
                   <TagIcon className="w-4 h-4 " />

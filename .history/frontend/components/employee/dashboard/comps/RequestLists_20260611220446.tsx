@@ -100,9 +100,9 @@ const RequestLists = ({ selectedDate }: RequestListsProps) => {
 
         return (
           <div key={leave.id} className="flex flex-col gap-1">
-            <p className="flex  items-center gap-2 text-base font-medium leading-7 tracking-normal ">
+            <p className="text-base font-medium leading-7 tracking-normal">
               {month}/{day}
-              <p className="text-sm font-normal leading-5 tracking-normal text-muted-foreground">
+              <p className="text-sm font-normal leading-5 tracking-normal text-muted">
                 {label && label}
               </p>
             </p>
