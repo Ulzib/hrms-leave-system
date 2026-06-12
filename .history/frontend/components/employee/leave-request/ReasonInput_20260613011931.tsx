@@ -13,7 +13,7 @@ const ReasonInput = ({ value, onChange, label }: ReasonProps) => {
     <div className="flex flex-col gap-2">
       <Label className="flex gap-0">
         <p className="text-sm font-medium leading-3.5 tracking-normal">
-          {displayLabel}
+          {displayLabel}{" "}
         </p>
         <p className="font-medium text-sm leading-3.5 text-[#EF4444]">*</p>
       </Label>

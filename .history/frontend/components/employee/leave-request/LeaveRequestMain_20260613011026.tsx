@@ -12,7 +12,6 @@ import ManagerComboBox from "./ManagerConfirm";
 import ReasonInput from "./ReasonInput";
 import SuccessModal from "./SuccessModal";
 import useLeaveForm from "./UseLeaveForm";
-import FileUpload from "./FileUpload";
 
 const LeaveRequestForm = () => {
   const {
@@ -78,7 +77,6 @@ const LeaveRequestForm = () => {
               onChange={(val) => handleChange("reason", val)}
               label={isRemoteWork ? "Зайнаас ажиллах шалтгаан" : undefined}
             />
-            {isRemoteWork && <FileUpload file={file} onChange={setFile} />}
           </>
         )}
 

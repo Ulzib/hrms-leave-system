@@ -1,35 +1,21 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import CategoryField from "./Category";
-
+import { LeaveBalance, LeaveFormData, Manager, RequestType } from "@/lib/types";
+import { INITIAL_FORM } from "@/lib/constants";
+import api from "@/lib/axios";
 import { Button } from "@/components/ui/button";
 import { Send } from "lucide-react";
-
+import { toast } from "sonner";
 import LeaveTypeField from "./LeaveType";
 import DateField from "./DateComp";
 import TimeRange from "./TimeRange";
 import ManagerComboBox from "./ManagerConfirm";
 import ReasonInput from "./ReasonInput";
 import SuccessModal from "./SuccessModal";
-import useLeaveForm from "./UseLeaveForm";
-import FileUpload from "./FileUpload";
 
 const LeaveRequestForm = () => {
-  const {
-    form,
-    requestTypes,
-    balances,
-    managers,
-    loading,
-    showSuccess,
-    file,
-    isRemoteWork,
-    isSubmitDisabled,
-    handleChange,
-    handleSubmit,
-    handleSuccessClose,
-    setFile,
-  } = useLeaveForm();
   return (
     <>
       <div className="w-full relative flex flex-col gap-8 border-[#E4E4E7] bg-white rounded-[8px] p-8 shadow-sm ">
@@ -50,18 +36,15 @@ const LeaveRequestForm = () => {
         />
         {form.requestTypeId && (
           <>
-            {!isRemoteWork && (
-              <LeaveTypeField
-                value={form.type}
-                onChange={(val) => handleChange("type", val)}
-              />
-            )}
+            <LeaveTypeField
+              value={form.type}
+              onChange={(val) => handleChange("type", val)}
+            />
             <DateField
               value={form.date}
               onChange={(val) => handleChange("date", val)}
-              label={isRemoteWork ? "Зайнаас ажиллах өдөр" : undefined}
             />
-            {form.type === "hourly" && !isRemoteWork && (
+            {form.type === "hourly" && (
               <TimeRange
                 startTime={form.startTime}
                 endTime={form.endTime}
@@ -76,9 +59,7 @@ const LeaveRequestForm = () => {
             <ReasonInput
               value={form.reason}
               onChange={(val) => handleChange("reason", val)}
-              label={isRemoteWork ? "Зайнаас ажиллах шалтгаан" : undefined}
             />
-            {isRemoteWork && <FileUpload file={file} onChange={setFile} />}
           </>
         )}
 

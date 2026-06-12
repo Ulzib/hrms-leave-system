@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import CategoryField from "./Category";
 
 import { Button } from "@/components/ui/button";
@@ -12,7 +13,6 @@ import ManagerComboBox from "./ManagerConfirm";
 import ReasonInput from "./ReasonInput";
 import SuccessModal from "./SuccessModal";
 import useLeaveForm from "./UseLeaveForm";
-import FileUpload from "./FileUpload";
 
 const LeaveRequestForm = () => {
   const {
@@ -59,9 +59,8 @@ const LeaveRequestForm = () => {
             <DateField
               value={form.date}
               onChange={(val) => handleChange("date", val)}
-              label={isRemoteWork ? "Зайнаас ажиллах өдөр" : undefined}
             />
-            {form.type === "hourly" && !isRemoteWork && (
+            {form.type === "hourly" && (
               <TimeRange
                 startTime={form.startTime}
                 endTime={form.endTime}
@@ -76,9 +75,7 @@ const LeaveRequestForm = () => {
             <ReasonInput
               value={form.reason}
               onChange={(val) => handleChange("reason", val)}
-              label={isRemoteWork ? "Зайнаас ажиллах шалтгаан" : undefined}
             />
-            {isRemoteWork && <FileUpload file={file} onChange={setFile} />}
           </>
         )}
 
