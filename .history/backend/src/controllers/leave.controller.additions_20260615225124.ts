@@ -1,0 +1,35 @@
+import { Request, Response } from "express";
+import asyncHandler from "../middleware/asyncHandler";
+
+//api/leaves/approved
+// - startDate, endDate query param-r shuuj blno (yyyy-mm-dd)
+
+export const getApprovedLeaves = asyncHandler(
+  async (req: Request, res: Response) => {
+    const { startDate, endDate } = req.query;
+
+    //prisma where nuhtsul - ehendee zubhun Approved shuune
+    const whereCondition: {
+      status: string;
+      startDate?: { gte?: Date; lte: Date };
+    } = {
+      status: "APPROVED",
+    };
+
+    //startDate esvel endDate irsn bol ognoogoor shuune
+    if (startDate || endDate) {
+      whereCondition.startDate = {};
+
+      if (startDate) {
+        //startDate-s hoishih chuluug avna
+        whereCondition.startDate?.gte = new Date(startDate as string);
+      }
+
+      if (endDate) {
+        //endDate udriig buren oruulahiin tuld margash ugluu hurtel avna
+        const end = new Date(endDate as string);
+        end.setDate();
+      }
+    }
+  },
+);

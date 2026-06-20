@@ -9,21 +9,22 @@ import {
   updateLeaveStatus,
 } from "../controllers/leave.controller";
 import prisma from "../lib/prisma";
+import getApprovedLeaves from "../controllers/leaveCalendar.controller";
 
 const router = Router();
 
 router.get("/types", protect, getRequestTypes);
 router.post("/types", protect, authorize("ADMIN"), createRequestType);
 
-router.post("/", protect, createLeaveReq);
-router.get("/my-request", protect, getMyLeaveReqs);
-router.get("/all-requests", protect, authorize("ADMIN", "HR"), getAllLeaveReqs);
-router.patch(
-  "/:id/status",
-  protect,
-  authorize("ADMIN", "HR"),
-  updateLeaveStatus,
-);
+//hr,admin hereglegchdiin jagsaalt - hyanagch songohd ashiglana
+router.get("/managers", protect, async (req, res) => {
+  const managers = await prisma.user.findMany({
+    where: { role: { in: ["HR", "ADMIN"] } },
+    select: { id: true, username: true, role: true },
+    orderBy: { username: "asc" },
+  });
+  res.json(managers);
+});
 
 router.get("/balance", protect, async (req, res) => {
   const userId = req.user!.id;
@@ -44,7 +45,7 @@ router.get("/balance", protect, async (req, res) => {
           userId,
           requestTypeId: type.id,
           status: "APPROVED",
-          createdAt: { gte: dateFilter },
+          createdAt: { gte: dateFilter }, //hugatsaani fillter
         },
         _sum: { days: true },
       });
@@ -58,5 +59,16 @@ router.get("/balance", protect, async (req, res) => {
   );
   res.json(balance);
 });
+
+router.post("/", protect, createLeaveReq);
+router.get("/my-request", protect, getMyLeaveReqs);
+router.get("/approved", protect, getApprovedLeaves);
+router.get("/all-requests", protect, authorize("ADMIN", "HR"), getAllLeaveReqs);
+router.patch(
+  "/:id/status",
+  protect,
+  authorize("ADMIN", "HR"),
+  updateLeaveStatus,
+);
 
 export default router;

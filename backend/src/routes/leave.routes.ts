@@ -9,6 +9,7 @@ import {
   updateLeaveStatus,
 } from "../controllers/leave.controller";
 import prisma from "../lib/prisma";
+import getApprovedLeaves from "../controllers/leaveCalendar.controller";
 
 const router = Router();
 
@@ -61,6 +62,7 @@ router.get("/balance", protect, async (req, res) => {
 
 router.post("/", protect, createLeaveReq);
 router.get("/my-request", protect, getMyLeaveReqs);
+router.get("/approved", protect, getApprovedLeaves);
 router.get("/all-requests", protect, authorize("ADMIN", "HR"), getAllLeaveReqs);
 router.patch(
   "/:id/status",
