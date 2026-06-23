@@ -11,22 +11,18 @@ export const createLeaveReq = asyncHandler(
     const days = Math.ceil(
       (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24),
     );
-
     //requestType-s limit avah
     const requestType = await prisma.requestType.findUnique({
       where: { id: requestTypeId },
     });
-
     if (!requestType) {
       res.status(404).json({ message: "Чөлөөний төрөл олдсонгүй" });
       return;
     }
-
     //manager id shalgah
     const manager = await prisma.user.findUnique({
       where: { id: managerId },
     });
-
     if (!manager || !["HR", "ADMIN"].includes(manager.role)) {
       res
         .status(400)

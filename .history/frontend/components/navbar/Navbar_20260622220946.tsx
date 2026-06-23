@@ -35,14 +35,6 @@ const Navbar = () => {
         </div>
       </div>
       <div className="flex items-center gap-6">
-        {isManager && (
-          <Link
-            href="/leaves"
-            className={`text-sm font-medium leading-5 tracking-normal pb-3 -mb-3.5 ${isActive("/leaves") ? "border-b-2 border-gray-600" : ""}`}
-          >
-            Pending Requests
-          </Link>
-        )}
         <Link
           href="/employee-dashboard"
           className={`text-sm font-medium leading-5 tracking-normal pb-3 -mb-3.5 ${

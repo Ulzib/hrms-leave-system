@@ -37,18 +37,8 @@ export interface LeaveRequestItem {
   startDate: string;
   endDate: string;
   days: number;
-  reason: string;
+  user: string;
+  requestType: RequestType;
+  rejectReason: string;
   status: LeaveStatus;
-  rejectReason: string | null;
-  createdAt: string;
-  user: {
-    id: number;
-    username: string;
-    email: string;
-    profilePicture?: string | null;
-  };
-  requestType: {
-    id: number;
-    name: string;
-  };
 }

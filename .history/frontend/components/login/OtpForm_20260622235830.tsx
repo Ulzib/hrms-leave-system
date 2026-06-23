@@ -43,7 +43,7 @@ const OtpForm = () => {
       if (res.data.user.role === "ADMIN") {
         router.push("/admin-dashboard");
       } else if (res.data.user.role === "HR") {
-        router.push("/leaves");
+        router.push("/(hr)/leaves");
       } else {
         router.push("/employee-dashboard");
       }

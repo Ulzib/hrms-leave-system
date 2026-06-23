@@ -31,24 +31,9 @@ export interface LeaveFormData {
   reason: string;
 }
 
-//hr,admin pending request paget ashiglah 1 huseltiin info
 export interface LeaveRequestItem {
-  id: number;
-  startDate: string;
-  endDate: string;
-  days: number;
-  reason: string;
+  user: string;
+  requestType: RequestType;
+  rejectReason: string;
   status: LeaveStatus;
-  rejectReason: string | null;
-  createdAt: string;
-  user: {
-    id: number;
-    username: string;
-    email: string;
-    profilePicture?: string | null;
-  };
-  requestType: {
-    id: number;
-    name: string;
-  };
 }
