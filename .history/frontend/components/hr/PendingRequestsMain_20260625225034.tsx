@@ -13,7 +13,7 @@ const PendingRequestsMain = () => {
   const [selectedDate, setSelectedDate] = useState<DateRange | undefined>(
     undefined,
   );
-  //List-s songogdson huselt, baruun taliin panel
+  //List-s songogfson huselt, baruun taliin panel
   const [selectedRequest, setSelectedRequest] =
     useState<LeaveRequestItem | null>(null);
 

@@ -25,12 +25,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const savedUser = localStorage.getItem("user");
     const savedToken = localStorage.getItem("token");
 
-    if (savedUser) {
-      setUser(JSON.parse(savedUser));
-    }
-    if (savedToken) {
-      setToken(savedToken);
-    }
+    if (savedUser) setUser(JSON.parse(savedUser));
+    if (savedToken) setToken(savedToken);
   }, []);
 
   const login = (token: string, user: User) => {

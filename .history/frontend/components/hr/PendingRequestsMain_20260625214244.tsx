@@ -6,16 +6,12 @@ import { Button } from "../ui/button";
 import { PlusCircle, Search } from "lucide-react";
 import { DateRange } from "react-day-picker";
 import RequestDatePicker from "./RequestDatePicker";
-import PendingRequestsList, { LeaveRequestItem } from "./PendingRequestsList";
 
 const PendingRequestsMain = () => {
   const [search, setSearch] = useState("");
   const [selectedDate, setSelectedDate] = useState<DateRange | undefined>(
     undefined,
   );
-  //List-s songogdson huselt, baruun taliin panel
-  const [selectedRequest, setSelectedRequest] =
-    useState<LeaveRequestItem | null>(null);
 
   return (
     <div className="flex flex-col gap-5">
@@ -43,15 +39,6 @@ const PendingRequestsMain = () => {
         <RequestDatePicker
           selectedDate={selectedDate}
           onDateChange={setSelectedDate}
-        />
-      </div>
-      {/*zuun lists */}
-      <div className="grid grid-cols gap-4 items-start">
-        <PendingRequestsList
-          search={search}
-          selectedDate={selectedDate}
-          selectedId={selectedRequest?.id ?? null}
-          onSelect={setSelectedRequest}
         />
       </div>
     </div>

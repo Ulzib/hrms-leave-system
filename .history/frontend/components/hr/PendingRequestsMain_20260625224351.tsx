@@ -13,7 +13,7 @@ const PendingRequestsMain = () => {
   const [selectedDate, setSelectedDate] = useState<DateRange | undefined>(
     undefined,
   );
-  //List-s songogdson huselt, baruun taliin panel
+  //List-s songogfson huselt, baruun taliin panel
   const [selectedRequest, setSelectedRequest] =
     useState<LeaveRequestItem | null>(null);
 
@@ -47,12 +47,7 @@ const PendingRequestsMain = () => {
       </div>
       {/*zuun lists */}
       <div className="grid grid-cols gap-4 items-start">
-        <PendingRequestsList
-          search={search}
-          selectedDate={selectedDate}
-          selectedId={selectedRequest?.id ?? null}
-          onSelect={setSelectedRequest}
-        />
+        <PendingRequestsList />
       </div>
     </div>
   );
