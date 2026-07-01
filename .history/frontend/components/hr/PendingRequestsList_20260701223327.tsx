@@ -145,7 +145,7 @@ const PendingRequestsList = ({
         startIndex={startIndex}
         pageSize={PAGE_SIZE}
         totalCount={totalCount}
-        onPageChange={onPageChange}
+        onPageChange={setCurrentPage}
       />
     </>
   );

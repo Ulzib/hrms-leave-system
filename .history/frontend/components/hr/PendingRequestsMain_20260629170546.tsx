@@ -8,8 +8,6 @@ import { DateRange } from "react-day-picker";
 import RequestDatePicker from "./RequestDatePicker";
 import PendingRequestsList, { LeaveRequestItem } from "./PendingRequestsList";
 import RequestDetailPanel from "./RequestDetailPanel";
-import ConfirmApproveModal from "./ConfirmApproveModal";
-import RejectReasonModal from "./RejectReasonModal";
 
 const PendingRequestsMain = () => {
   const [search, setSearch] = useState("");
@@ -20,18 +18,8 @@ const PendingRequestsMain = () => {
   const [selectedRequest, setSelectedRequest] =
     useState<LeaveRequestItem | null>(null);
 
-  const [approveModalOpen, setApproveModalOpen] = useState(false);
-  const [rejectModalOpen, setRejectModalOpen] = useState(false);
-  const [refreshKey, setRefreshKey] = useState(0);
-  const [page, setPage] = useState(1);
-
-  const handleStatusSuccess = () => {
-    setRefreshKey((prev) => prev + 1);
-    setSelectedRequest(null);
-  };
-
   return (
-    <div className="w-full flex flex-col gap-2 ">
+    <div className="w-full flex gap-2 ">
       <div className="w-full flex flex-col gap-5">
         <h4 className="text-xl font-semibold leading-7 tracking-[-2.5%]">
           Хүсэлтүүд
@@ -56,10 +44,7 @@ const PendingRequestsMain = () => {
           </div>
           <RequestDatePicker
             selectedDate={selectedDate}
-            onDateChange={(date) => {
-              setSelectedDate(date);
-              setPage(1);
-            }}
+            onDateChange={setSelectedDate}
           />
         </div>
       </div>
@@ -71,9 +56,6 @@ const PendingRequestsMain = () => {
             selectedDate={selectedDate}
             selectedId={selectedRequest?.id ?? null}
             onSelect={setSelectedRequest}
-            currentPage={page}
-            onPageChange={setPage}
-            refreshKey={refreshKey}
           />
         </div>
         <div className="w-full">
@@ -82,35 +64,16 @@ const PendingRequestsMain = () => {
             <RequestDetailPanel
               request={selectedRequest}
               onApprove={() => {
-                setApproveModalOpen(true);
+                console.log("approve", selectedRequest.id);
               }}
               onReject={() => {
-                setRejectModalOpen(true);
+                console.log("reject", selectedRequest.id);
               }}
             />
           ) : (
-            <div className="rounded-xl border bg-white p-6 text-sm text-muted-foreground">
-              Хүсэлтээ сонгоно уу
-            </div>
+            <div>Хүсэлтээ сонгоно уу</div>
           )}
         </div>
-        {/*approve,reject modal. Songosn req bga ued l render blno*/}
-        {selectedRequest && (
-          <>
-            <ConfirmApproveModal
-              open={approveModalOpen}
-              requestId={selectedRequest.id}
-              onClose={() => setApproveModalOpen(false)}
-              onSuccess={handleStatusSuccess}
-            />
-            <RejectReasonModal
-              open={rejectModalOpen}
-              requestId={selectedRequest.id}
-              onClose={() => setRejectModalOpen(false)}
-              onSuccess={handleStatusSuccess}
-            />
-          </>
-        )}
       </div>
     </div>
   );

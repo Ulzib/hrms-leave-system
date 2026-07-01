@@ -56,10 +56,7 @@ const PendingRequestsMain = () => {
           </div>
           <RequestDatePicker
             selectedDate={selectedDate}
-            onDateChange={(date) => {
-              setSelectedDate(date);
-              setPage(1);
-            }}
+            onDateChange={setSelectedDate}
           />
         </div>
       </div>

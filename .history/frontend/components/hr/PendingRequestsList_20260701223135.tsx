@@ -76,6 +76,11 @@ const PendingRequestsList = ({
   const filterKey = `${search}|${selectedDate?.from}|${selectedDate?.to}`;
   const [prevFilterKey, setPrevFilterKey] = useState(filterKey);
 
+  if (filterKey !== prevFilterKey) {
+    setPrevFilterKey(filterKey);
+    setCurrentPage(1);
+  }
+
   //Nereer haih, ognooni limiteer shuuh
   let filteredReqs = requests.filter((req) =>
     req.user.username.toLowerCase().includes(search.toLowerCase()),
@@ -92,13 +97,6 @@ const PendingRequestsList = ({
 
   const totalCount = filteredReqs.length;
   const totalPages = Math.max(1, Math.ceil(totalCount / PAGE_SIZE));
-
-  useEffect(() => {
-    if (currentPage > totalPages) {
-      onPageChange(totalPages);
-    }
-  }, [totalPages, currentPage, onPageChange]);
-
   const startIndex = (currentPage - 1) * PAGE_SIZE;
   const endIndex = startIndex + PAGE_SIZE;
   const requestToShow = filteredReqs.slice(startIndex, endIndex);
@@ -145,7 +143,7 @@ const PendingRequestsList = ({
         startIndex={startIndex}
         pageSize={PAGE_SIZE}
         totalCount={totalCount}
-        onPageChange={onPageChange}
+        onPageChange={setCurrentPage}
       />
     </>
   );

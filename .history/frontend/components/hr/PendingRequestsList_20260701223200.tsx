@@ -76,6 +76,11 @@ const PendingRequestsList = ({
   const filterKey = `${search}|${selectedDate?.from}|${selectedDate?.to}`;
   const [prevFilterKey, setPrevFilterKey] = useState(filterKey);
 
+  if (filterKey !== prevFilterKey) {
+    setPrevFilterKey(filterKey);
+    setCurrentPage(1);
+  }
+
   //Nereer haih, ognooni limiteer shuuh
   let filteredReqs = requests.filter((req) =>
     req.user.username.toLowerCase().includes(search.toLowerCase()),
@@ -145,7 +150,7 @@ const PendingRequestsList = ({
         startIndex={startIndex}
         pageSize={PAGE_SIZE}
         totalCount={totalCount}
-        onPageChange={onPageChange}
+        onPageChange={setCurrentPage}
       />
     </>
   );

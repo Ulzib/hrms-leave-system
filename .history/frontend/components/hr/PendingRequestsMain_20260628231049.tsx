@@ -1,0 +1,76 @@
+"use client";
+
+import { useState } from "react";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
+import { PlusCircle, Search } from "lucide-react";
+import { DateRange } from "react-day-picker";
+import RequestDatePicker from "./RequestDatePicker";
+import PendingRequestsList, { LeaveRequestItem } from "./PendingRequestsList";
+import RequestDetailPanel from "./RequestDetailPanel";
+
+const PendingRequestsMain = () => {
+  const [search, setSearch] = useState("");
+  const [selectedDate, setSelectedDate] = useState<DateRange | undefined>(
+    undefined,
+  );
+  //List-s songogdson huselt, baruun taliin panel
+  const [selectedRequest, setSelectedRequest] =
+    useState<LeaveRequestItem | null>(null);
+
+  return (
+    <div className="flex flex-col gap-5">
+      <h4 className="text-xl font-semibold leading-7 tracking-[-2.5%]">
+        Хүсэлтүүд
+      </h4>
+      <div className="flex justify-between">
+        <div className="flex gap-3">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground " />
+            <Input
+              placeholder="Хайх"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="ring-0 focus:ring-0 focus:outline-none text-sm bg-[#FFFFFF] gap-2 pl-9 pr-3 h-9 w-60"
+            />
+          </div>
+          <Button className="border-[#E4E4E7] border-dashed py-2.5 px-3 gap-2 rounded-md bg-[#FFFFFF] text-black">
+            <PlusCircle />
+            <p className="text-sm font-medium leading-5 tracking-normal">
+              Төлөв
+            </p>
+          </Button>
+        </div>
+        <RequestDatePicker
+          selectedDate={selectedDate}
+          onDateChange={setSelectedDate}
+        />
+      </div>
+      {/*zuun lists */}
+      <div className="grid grid-cols gap-4 items-start">
+        <PendingRequestsList
+          search={search}
+          selectedDate={selectedDate}
+          selectedId={selectedRequest?.id ?? null}
+          onSelect={setSelectedRequest}
+        />
+
+        {/*baruun panel */}
+        {selectedRequest ? (
+          <RequestDetailPanel
+            request={selectedRequest}
+            onApprove={() => {
+              console.log("approve", selectedRequest.id);
+            }}
+            onReject={() => {
+              console.log("reject", selectedRequest.id);
+            }}
+          />
+        ) : (
+          <div>Хүсэлтээ сонгоно уу</div>
+        )}
+      </div>
+    </div>
+  );
+};
+export default PendingRequestsMain;

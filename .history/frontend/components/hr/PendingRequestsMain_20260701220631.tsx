@@ -56,10 +56,7 @@ const PendingRequestsMain = () => {
           </div>
           <RequestDatePicker
             selectedDate={selectedDate}
-            onDateChange={(date) => {
-              setSelectedDate(date);
-              setPage(1);
-            }}
+            onDateChange={setSelectedDate}
           />
         </div>
       </div>
@@ -71,7 +68,7 @@ const PendingRequestsMain = () => {
             selectedDate={selectedDate}
             selectedId={selectedRequest?.id ?? null}
             onSelect={setSelectedRequest}
-            currentPage={page}
+            page={page}
             onPageChange={setPage}
             refreshKey={refreshKey}
           />

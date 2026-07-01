@@ -9,6 +9,7 @@ import { ScrollArea } from "../ui/scroll-area";
 
 import RequestListItem from "./RequestListItem";
 import RequestPagination from "./RequestsPagination";
+import { log } from "console";
 
 export interface LeaveRequestItem {
   id: number;
@@ -28,9 +29,6 @@ interface PendingRequestListProps {
   selectedDate: DateRange | undefined;
   selectedId: number | null;
   onSelect: (request: LeaveRequestItem) => void;
-  currentPage: number;
-  onPageChange: (page: number) => void;
-  refreshKey: number;
 }
 
 const PAGE_SIZE = 10;
@@ -42,9 +40,6 @@ const PendingRequestsList = ({
   selectedDate,
   selectedId,
   onSelect,
-  currentPage,
-  onPageChange,
-  refreshKey,
 }: PendingRequestListProps) => {
   const [requests, setRequests] = useState<LeaveRequestItem[]>([]);
   const [readReqIds, setReadReqIds] = useState<number[]>(() => {
@@ -54,6 +49,7 @@ const PendingRequestsList = ({
     }
     return [];
   }); //click neej uzsen req id-g end savelene
+  const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -70,11 +66,15 @@ const PendingRequestsList = ({
       }
     };
     fetchReqs();
-  }, [refreshKey]);
+  }, []);
 
   //search, selectedDate uurchlugduuh burd 1-r huudas ru butsaana
   const filterKey = `${search}|${selectedDate?.from}|${selectedDate?.to}`;
   const [prevFilterKey, setPrevFilterKey] = useState(filterKey);
+  if (filterKey !== prevFilterKey) {
+    setPrevFilterKey(filterKey);
+    setCurrentPage(1);
+  }
 
   //Nereer haih, ognooni limiteer shuuh
   let filteredReqs = requests.filter((req) =>
@@ -92,13 +92,6 @@ const PendingRequestsList = ({
 
   const totalCount = filteredReqs.length;
   const totalPages = Math.max(1, Math.ceil(totalCount / PAGE_SIZE));
-
-  useEffect(() => {
-    if (currentPage > totalPages) {
-      onPageChange(totalPages);
-    }
-  }, [totalPages, currentPage, onPageChange]);
-
   const startIndex = (currentPage - 1) * PAGE_SIZE;
   const endIndex = startIndex + PAGE_SIZE;
   const requestToShow = filteredReqs.slice(startIndex, endIndex);
@@ -145,7 +138,7 @@ const PendingRequestsList = ({
         startIndex={startIndex}
         pageSize={PAGE_SIZE}
         totalCount={totalCount}
-        onPageChange={onPageChange}
+        onPageChange={setCurrentPage}
       />
     </>
   );

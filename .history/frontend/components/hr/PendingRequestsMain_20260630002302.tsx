@@ -9,7 +9,6 @@ import RequestDatePicker from "./RequestDatePicker";
 import PendingRequestsList, { LeaveRequestItem } from "./PendingRequestsList";
 import RequestDetailPanel from "./RequestDetailPanel";
 import ConfirmApproveModal from "./ConfirmApproveModal";
-import RejectReasonModal from "./RejectReasonModal";
 
 const PendingRequestsMain = () => {
   const [search, setSearch] = useState("");
@@ -22,13 +21,6 @@ const PendingRequestsMain = () => {
 
   const [approveModalOpen, setApproveModalOpen] = useState(false);
   const [rejectModalOpen, setRejectModalOpen] = useState(false);
-  const [refreshKey, setRefreshKey] = useState(0);
-  const [page, setPage] = useState(1);
-
-  const handleStatusSuccess = () => {
-    setRefreshKey((prev) => prev + 1);
-    setSelectedRequest(null);
-  };
 
   return (
     <div className="w-full flex flex-col gap-2 ">
@@ -56,10 +48,7 @@ const PendingRequestsMain = () => {
           </div>
           <RequestDatePicker
             selectedDate={selectedDate}
-            onDateChange={(date) => {
-              setSelectedDate(date);
-              setPage(1);
-            }}
+            onDateChange={setSelectedDate}
           />
         </div>
       </div>
@@ -71,9 +60,6 @@ const PendingRequestsMain = () => {
             selectedDate={selectedDate}
             selectedId={selectedRequest?.id ?? null}
             onSelect={setSelectedRequest}
-            currentPage={page}
-            onPageChange={setPage}
-            refreshKey={refreshKey}
           />
         </div>
         <div className="w-full">
@@ -82,10 +68,10 @@ const PendingRequestsMain = () => {
             <RequestDetailPanel
               request={selectedRequest}
               onApprove={() => {
-                setApproveModalOpen(true);
+                console.log("approve", selectedRequest.id);
               }}
               onReject={() => {
-                setRejectModalOpen(true);
+                console.log("reject", selectedRequest.id);
               }}
             />
           ) : (
@@ -97,18 +83,7 @@ const PendingRequestsMain = () => {
         {/*approve,reject modal. Songosn req bga ued l render blno*/}
         {selectedRequest && (
           <>
-            <ConfirmApproveModal
-              open={approveModalOpen}
-              requestId={selectedRequest.id}
-              onClose={() => setApproveModalOpen(false)}
-              onSuccess={handleStatusSuccess}
-            />
-            <RejectReasonModal
-              open={rejectModalOpen}
-              requestId={selectedRequest.id}
-              onClose={() => setRejectModalOpen(false)}
-              onSuccess={handleStatusSuccess}
-            />
+            <ConfirmApproveModal open={approveModelOpen} />
           </>
         )}
       </div>
