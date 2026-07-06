@@ -73,7 +73,12 @@ const LeaveCalendarMain = () => {
         <PickDate selectedDate={selectedDate} onDateChange={setSelectedDate} />
         <RequestButton />
       </div>
-
+      <div className="flex flex-col items-center justify-center py-16 gap-1">
+        <p className="text-base font-semibold">Чөлөөний хүсэлт алга байна.</p>
+        <p className="text-sm text-muted-foreground">
+          Нийт ажилтны чөлөөний хүсэлтүүд энд харагдана.
+        </p>
+      </div>
       {!loading && !error && leaves.length === 0 && (
         <div className="flex flex-col items-center justify-center py-16 gap-1">
           <p className="text-base font-semibold">Чөлөөний хүсэлт алга байна.</p>

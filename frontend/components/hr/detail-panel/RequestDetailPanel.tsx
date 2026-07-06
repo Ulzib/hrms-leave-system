@@ -1,7 +1,7 @@
 import { Calendar, Check, TagIcon, TimerIcon, X } from "lucide-react";
-import { Badge } from "../ui/badge";
-import { LeaveRequestItem } from "./PendingRequestsList";
-import { Button } from "../ui/button";
+import { Badge } from "../../ui/badge";
+import { LeaveRequestItem } from "../request-list/PendingRequestsList";
+import { Button } from "../../ui/button";
 
 interface DetailPanelProps {
   request: LeaveRequestItem;

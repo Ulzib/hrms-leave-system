@@ -62,17 +62,17 @@ const LeaveCard = ({ leave }: { leave: ApprovedLeave }) => {
           {/* chuluunii tsag */}
           <div className="flex items-center gap-2 text-muted-foreground">
             <Clock className="w-3.5 h-3.5" />
-            <p className="text-sm text-black font-medium leading-5 tracking-normal">
+            <span className="text-sm font-medium leading-5 tracking-normal">
               09:00 - 18:00
-            </p>
+            </span>
           </div>
 
           {/* type, days */}
           <div className="flex items-center gap-1 text-muted-foreground">
             <TagIcon className="w-3.5 h-3.5" />
-            <p className="text-sm text-black font-medium leading-5 tracking-normal">
+            <span className="text-sm font-medium leading-5 tracking-normal">
               {leave.requestType.name} ({leave.days} хоног)
-            </p>
+            </span>
           </div>
         </div>
       </div>

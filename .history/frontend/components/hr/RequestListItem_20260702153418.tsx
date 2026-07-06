@@ -1,7 +1,7 @@
 "use client";
 
 import { formatDistanceToNowStrict } from "date-fns";
-import { LeaveRequestItem } from "./PendingRequestsList";
+import { LeaveRequestItem } from "./request-list/PendingRequestsList";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Calendar, TagIcon } from "lucide-react";
 import { Badge } from "../ui/badge";

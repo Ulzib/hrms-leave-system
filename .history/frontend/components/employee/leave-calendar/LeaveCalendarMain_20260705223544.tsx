@@ -64,29 +64,40 @@ const LeaveCalendarMain = () => {
     fetchLeaves();
   }, [selectedDate]); //selectedDate uurchlugduh burd useEff dahin shiner ajillaj, shine udriin ugugdliig database-g tatna
 
-  return (
-    <div className="flex flex-col gap-5">
-      <h4 className="text-xl font-semibold leading-7 tracking-[-2.5%]">
-        Чөлөө авсан:
-      </h4>
-      <div className="flex justify-between items-center">
-        <PickDate selectedDate={selectedDate} onDateChange={setSelectedDate} />
-        <RequestButton />
-      </div>
-
-      {!loading && !error && leaves.length === 0 && (
+  if (!loading && !error && leaves.length === 0) {
+    return (
+      <div className="flex flex-col gap-5">
+        <h4 className="text-xl font-semibold leading-7 tracking-[-2.5%]">
+          Чөлөө авсан:
+        </h4>
+        <div className="flex justify-between items-center">
+          <PickDate
+            selectedDate={selectedDate}
+            onDateChange={setSelectedDate}
+          />
+          <RequestButton />
+        </div>
         <div className="flex flex-col items-center justify-center py-16 gap-1">
           <p className="text-base font-semibold">Чөлөөний хүсэлт алга байна.</p>
           <p className="text-sm text-muted-foreground">
             Нийт ажилтны чөлөөний хүсэлтүүд энд харагдана.
           </p>
         </div>
-      )}
-      {!loading && !error && leaves.length > 0 && (
-        <LeaveCalendarList leaves={leaves} />
-      )}
-    </div>
-  );
+        {!loading && !error && leaves.length === 0 && (
+          <div className="flex flex-col items-center justify-center py-16 gap-1">
+            <p className="text-base font-semibold">
+              Чөлөөний хүсэлт алга байна.
+            </p>
+            <p className="text-sm text-muted-foreground">
+              Нийт ажилтны чөлөөний хүсэлтүүд энд харагдана.
+            </p>
+          </div>
+        )}
+        {!loading && !error && leaves.length > 0 && (
+          <LeaveCalendarList leaves={leaves} />
+        )}
+      </div>
+    );
+  }
 };
-
 export default LeaveCalendarMain;

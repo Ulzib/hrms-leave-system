@@ -1,15 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
+import { Input } from "../../ui/input";
+import { Button } from "../../ui/button";
 import { PlusCircle, Search } from "lucide-react";
 import { DateRange } from "react-day-picker";
-import RequestDatePicker from "./RequestDatePicker";
-import PendingRequestsList, { LeaveRequestItem } from "./PendingRequestsList";
-import RequestDetailPanel from "./RequestDetailPanel";
+import RequestDatePicker from "../RequestDatePicker";
+import PendingRequestsList, {
+  LeaveRequestItem,
+} from "../request-list/PendingRequestsList";
+import RequestDetailPanel from "../RequestDetailPanel";
 import ConfirmApproveModal from "./ConfirmApproveModal";
-import RejectReasonModal from "./RejectReasonModal";
+import RejectReasonModal from "../RejectReasonModal";
 
 const PendingRequestsMain = () => {
   const [search, setSearch] = useState("");
