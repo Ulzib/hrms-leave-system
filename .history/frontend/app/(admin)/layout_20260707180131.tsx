@@ -7,9 +7,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
     <RoleScan allowedRole={["ADMIN"]}>
       <div className="min-h-screen flex flex-col w-full ">
         <Navbar />
-        <main className="flex-1 w-full max-w-full justify-center items-center bg-gray-100 ">
-          {children}
-        </main>
+        <main>{children}</main>
       </div>
     </RoleScan>
   );

@@ -4,7 +4,6 @@ import dotenv from "dotenv";
 import AuthRoutes from "./routes/auth.routes";
 import errorHandler from "./middleware/errorHandler";
 import LeaveRoutes from "./routes/leave.routes";
-import AdminRoutes from "./routes/admin.routes";
 
 dotenv.config();
 

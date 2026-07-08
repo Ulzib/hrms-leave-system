@@ -5,11 +5,9 @@ import RoleScan from "@/components/RoleScan";
 const AdminLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <RoleScan allowedRole={["ADMIN"]}>
-      <div className="min-h-screen flex flex-col w-full ">
+      <div>
         <Navbar />
-        <main className="flex-1 w-full max-w-full justify-center items-center bg-gray-100 ">
-          {children}
-        </main>
+        <main>{children}</main>
       </div>
     </RoleScan>
   );

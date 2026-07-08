@@ -5,7 +5,6 @@ async function main() {
     data: {
       email: "admin@gmail.com",
       username: "Admin",
-      position: "Админ",
       role: "ADMIN",
     },
   });
@@ -14,7 +13,6 @@ async function main() {
     data: {
       email: "manager@gmail.com",
       username: "Manager",
-      position: "Менежер",
       role: "HR",
     },
   });
@@ -23,7 +21,6 @@ async function main() {
     data: {
       email: "employee@gmail.com",
       username: "Ажилтан",
-      position: "Хөгжүүлэгч",
       role: "EMPLOYEE",
     },
   });
