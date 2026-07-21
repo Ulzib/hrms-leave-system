@@ -1,0 +1,36 @@
+"use client";
+
+import { Button } from "@/components/ui/button";
+import { ChevronLeft } from "lucide-react";
+
+const months = [
+  "1-р сар",
+  "2-р сар",
+  "3-р сар",
+  "4-р сар",
+  "5-р сар",
+  "6-р сар",
+  "7-р сар",
+  "8-р сар",
+  "9-р сар",
+  "10-р сар",
+  "11-р сар",
+  "12-р сар",
+];
+
+interface MonthProps {
+  month: number;
+  year: number;
+  onChange: (month: number, year: number) => void;
+}
+
+const MonthSwitcher = ({ month, year, onChange }: MonthProps) => {
+  return (
+    <div className="flex items-center gap-2 border rounded-md px-2 py-1.5 bg-white">
+      <Button className="bg-white">
+        <ChevronLeft className="size-4" />
+      </Button>
+    </div>
+  );
+};
+export default MonthSwitcher;

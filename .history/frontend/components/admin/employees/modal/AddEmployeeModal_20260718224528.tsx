@@ -1,0 +1,50 @@
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { useState } from "react";
+
+interface AddEmpModalProps {
+  open: boolean;
+  onClose: () => void;
+  onSuccess: () => void;
+}
+
+const AddEmployeeModal = ({ open, onClose, onSuccess }: AddEmpModalProps) => {
+  const [username, setUsername] = useState("");
+  const [position, setPosition] = useState("");
+  const [email, setEmail] = useState("");
+  const [hired, setHired] = useState<Date | undefined>(undefined);
+  const [role, setRole] = useState("EMPLOYEE");
+  const [submit, setSubmit] = useState(false);
+
+  const resetForm = () => {
+    setUsername("");
+    setPosition("");
+    setEmail("");
+    setHired(undefined);
+    setRole("EMPLOYEE");
+  };
+
+  const handleClose = () => {
+    resetForm();
+    onClose();
+  };
+
+  return (
+    <Dialog open={open} onOpenChange={handleClose}>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Шинэ ажилтан бүртгэх</DialogTitle>
+          <DialogDescription>
+            Дараах формыг бөглөж шинэ ажилтны мэдээллийг оруулна уу.
+          </DialogDescription>
+        </DialogHeader>
+      </DialogContent>
+    </Dialog>
+  );
+};
+export default AddEmployeeModal;
