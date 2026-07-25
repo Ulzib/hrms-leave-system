@@ -26,15 +26,15 @@ const Navbar = () => {
 
   const linkClass = (path: string) => {
     let className =
-      "text-center text-sm font-medium leading-5 tracking-normal pb-3 -mb-3.5  ";
+      "text-center text-sm font-medium leading-5 tracking-normal pb-3 -mb-3.5";
     if (isActive(path)) {
-      className += "border-b-2 border-gray-600 dark:border-gray-300 ";
+      className += " border-gray-600";
     }
     return className;
   };
 
   return (
-    <div className="sticky top-0 left-0 z-50 w-full h-auto flex flex-col border-border py-3.5 px-6 gap-3 border-b bg-background dark:bg-muted">
+    <div className="sticky top-0 left-0 z-50 w-full h-auto flex flex-col border-border py-3.5 px-6 gap-3 border-b bg-background dark:bg-neutral-900">
       <div className="flex justify-between">
         <div className="flex gap-4 items-center">
           <PineIcon />
@@ -56,7 +56,7 @@ const Navbar = () => {
         )}
         {hrPendingReqs && (
           <Link href="/leaves" className={linkClass("/leaves")}>
-            Хүлээгдэж буй хүсэлтүүд
+            Pending Requests
           </Link>
         )}
         {staffLinks && (
@@ -65,16 +65,16 @@ const Navbar = () => {
               href="/employee-dashboard"
               className={linkClass("/employee-dashboard")}
             >
-              Миний хүсэлтүүд
+              My requests
             </Link>
             <Link href="/leave-request" className={linkClass("/leave-request")}>
-              Хүсэлтийн маягт
+              Request Form
             </Link>
             <Link
               href="/leave-calendar"
               className={linkClass("/leave-calendar")}
             >
-              Чөлөөний хүсэлтүүд
+              Leave Calendar
             </Link>
           </>
         )}

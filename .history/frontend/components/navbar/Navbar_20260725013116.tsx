@@ -26,9 +26,9 @@ const Navbar = () => {
 
   const linkClass = (path: string) => {
     let className =
-      "text-center text-sm font-medium leading-5 tracking-normal pb-3 -mb-3.5  ";
+      "text-center text-sm font-medium leading-5 tracking-normal pb-3 -mb-3.5 ";
     if (isActive(path)) {
-      className += "border-b-2 border-gray-600 dark:border-gray-300 ";
+      className += " border-gray-600";
     }
     return className;
   };

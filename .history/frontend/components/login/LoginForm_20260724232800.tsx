@@ -91,12 +91,7 @@ const LoginForm = ({ className, ...props }: LoginFormProps) => {
                 />
               </Field>
 
-              <Button
-                onClick={handleSubmit}
-                type="submit"
-                disabled={loading}
-                className="py-5 px-4 gap-2 rounded-md"
-              >
+              <Button onClick={handleSubmit} type="submit" disabled={loading}>
                 {loading ? <Spinner /> : "Нэвтрэх"}
               </Button>
             </FieldGroup>

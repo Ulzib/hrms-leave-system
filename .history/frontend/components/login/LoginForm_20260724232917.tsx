@@ -95,7 +95,7 @@ const LoginForm = ({ className, ...props }: LoginFormProps) => {
                 onClick={handleSubmit}
                 type="submit"
                 disabled={loading}
-                className="py-5 px-4 gap-2 rounded-md"
+                className="py-4 px-4 gap-2 rounded-md"
               >
                 {loading ? <Spinner /> : "Нэвтрэх"}
               </Button>

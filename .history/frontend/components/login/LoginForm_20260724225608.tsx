@@ -58,27 +58,22 @@ const LoginForm = ({ className, ...props }: LoginFormProps) => {
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader className="text-center">
-          <CardTitle className="text-xl font-bold leading-7 tracking-normal dark:text-gray-200">
-            Нэвтрэх
-          </CardTitle>
+          <CardTitle className="text-xl dark:text-gray-200"> Нэвтрэх</CardTitle>
         </CardHeader>
         <CardContent>
           <div>
             <FieldGroup>
               <Image
-                src="/lcube.jpg"
-                alt="cube"
-                width={180}
-                height={180}
-                className="mx-auto"
+                src="/pins.jpg"
+                alt="logo"
+                width={140}
+                height={140}
+                className="rounded-md object-contain mx-auto"
                 priority
               />
               <Field>
-                <FieldLabel
-                  htmlFor="email"
-                  className="text-sm font-medium leading-5 tracking-normal dark:text-gray-200"
-                >
-                  Имэйл хаяг
+                <FieldLabel htmlFor="email" className="dark:text-gray-200">
+                  Имэйл
                 </FieldLabel>
                 <Input
                   id="email"
@@ -91,12 +86,7 @@ const LoginForm = ({ className, ...props }: LoginFormProps) => {
                 />
               </Field>
 
-              <Button
-                onClick={handleSubmit}
-                type="submit"
-                disabled={loading}
-                className="py-5 px-4 gap-2 rounded-md"
-              >
+              <Button onClick={handleSubmit} type="submit" disabled={loading}>
                 {loading ? <Spinner /> : "Нэвтрэх"}
               </Button>
             </FieldGroup>

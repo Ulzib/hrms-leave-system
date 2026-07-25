@@ -28,7 +28,7 @@ const Navbar = () => {
     let className =
       "text-center text-sm font-medium leading-5 tracking-normal pb-3 -mb-3.5  ";
     if (isActive(path)) {
-      className += "border-b-2 border-gray-600 dark:border-gray-300 ";
+      className += "border-b-2 border-gray-600 dark:border-gray-200 ";
     }
     return className;
   };

@@ -31,6 +31,7 @@ export const createLeaveReq = asyncHandler(
       res
         .status(400)
         .json({ message: "Хянагч олдсонгүй эсвэл эрх хүрэлцэхгүй байна" });
+      return;
     }
 
     //period-s hamaaran sariin, jiliin ehnees tootsno

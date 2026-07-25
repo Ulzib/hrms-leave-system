@@ -74,10 +74,7 @@ const LoginForm = ({ className, ...props }: LoginFormProps) => {
                 priority
               />
               <Field>
-                <FieldLabel
-                  htmlFor="email"
-                  className="text-sm font-medium leading-5 tracking-normal dark:text-gray-200"
-                >
+                <FieldLabel htmlFor="email" className="dark:text-gray-200">
                   Имэйл хаяг
                 </FieldLabel>
                 <Input
@@ -91,12 +88,7 @@ const LoginForm = ({ className, ...props }: LoginFormProps) => {
                 />
               </Field>
 
-              <Button
-                onClick={handleSubmit}
-                type="submit"
-                disabled={loading}
-                className="py-5 px-4 gap-2 rounded-md"
-              >
+              <Button onClick={handleSubmit} type="submit" disabled={loading}>
                 {loading ? <Spinner /> : "Нэвтрэх"}
               </Button>
             </FieldGroup>

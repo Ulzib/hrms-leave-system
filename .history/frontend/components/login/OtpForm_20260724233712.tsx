@@ -91,7 +91,13 @@ const OtpForm = () => {
               Дахин илгээх
             </Button>
           </div>
-
+          <Image
+            src="/lcube.jpg"
+            alt="cube"
+            width={90}
+            height={90}
+            className="mx-auto"
+          />
           <InputOTP
             maxLength={4}
             id="otp-verification"
