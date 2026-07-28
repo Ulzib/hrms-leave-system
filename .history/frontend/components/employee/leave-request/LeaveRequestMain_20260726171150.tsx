@@ -36,16 +36,11 @@ const LeaveRequestForm = () => {
   if (pageLoading) {
     return (
       <div className="w-full flex flex-col gap-8 bg-white dark:bg-neutral-900 rounded-[8px] p-8 shadow-sm">
-        <div className="mb-1 flex flex-col gap-2">
-          <Skeleton className="h-7 w-52" />
-          <Skeleton className="h-4 w-full" />
-          <Skeleton className="h-4 w-2/3" />
+        <div>
+          <Skeleton className="h-56 w-full" />
+          <Skeleton className="h-56 w-full" />
+          <Skeleton className="h-56 w-full" />
         </div>
-        <div className="w-full flex flex-col gap-2">
-          <Skeleton className="h-3.5 w-16" />
-          <Skeleton className="h-9 w-full" />
-        </div>
-        <Skeleton className="h-10 w-36 ml-auto" />
       </div>
     );
   }

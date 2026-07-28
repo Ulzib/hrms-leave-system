@@ -2,7 +2,6 @@
 
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
 import api from "@/lib/axios";
 import { Calendar, TagIcon } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -40,9 +39,9 @@ const RequestLists = ({ selectedDate }: RequestListsProps) => {
   useEffect(() => {
     const fetchLeaves = async () => {
       try {
-        setLoading(true);
         const res = await api.get("/leave/my-request");
         setLeaves(res.data);
+        setLoading(true);
       } catch (err) {
         console.error(err);
       } finally {
@@ -76,19 +75,6 @@ const RequestLists = ({ selectedDate }: RequestListsProps) => {
     if (difDays === 2) return "Уржигдар";
     return null;
   };
-
-  if (loading) {
-    const skeletons = [];
-    for (let i = 0; i < 3; i++) {
-      skeletons.push(
-        <div key={i} className="flex flex-col gap-1">
-          <Skeleton className="h-6 w-24" />
-          <Skeleton className="h-20 w-full rounded-xl" />
-        </div>,
-      );
-    }
-    return <div className="flex flex-col gap-5">{skeletons}</div>;
-  }
 
   if (filteredLeaves.length === 0) {
     return (

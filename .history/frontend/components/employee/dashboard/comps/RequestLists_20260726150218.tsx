@@ -40,9 +40,9 @@ const RequestLists = ({ selectedDate }: RequestListsProps) => {
   useEffect(() => {
     const fetchLeaves = async () => {
       try {
-        setLoading(true);
         const res = await api.get("/leave/my-request");
         setLeaves(res.data);
+        setLoading(true);
       } catch (err) {
         console.error(err);
       } finally {

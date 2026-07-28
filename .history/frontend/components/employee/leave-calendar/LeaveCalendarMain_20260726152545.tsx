@@ -80,8 +80,6 @@ const LeaveCalendarMain = () => {
           <Skeleton className="h-20 w-full rounded-md" />
           <Skeleton className="h-20 w-full rounded-md" />
           <Skeleton className="h-20 w-full rounded-md" />
-          <Skeleton className="h-20 w-full rounded-md" />
-          <Skeleton className="h-20 w-full rounded-md" />
         </div>
       )}
 

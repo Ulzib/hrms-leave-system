@@ -7,7 +7,6 @@ import RequestButton from "../dashboard/comps/RequestButton";
 import { format } from "date-fns";
 import api from "@/lib/axios";
 import LeaveCalendarList from "./LeaveCalendarList";
-import { Skeleton } from "@/components/ui/skeleton";
 
 //backend-s ireh chuluuni database butets
 interface ApprovedLeave {
@@ -74,16 +73,6 @@ const LeaveCalendarMain = () => {
         <PickDate selectedDate={selectedDate} onDateChange={setSelectedDate} />
         <RequestButton />
       </div>
-
-      {loading && (
-        <div className="flex flex-col gap-1">
-          <Skeleton className="h-20 w-full rounded-md" />
-          <Skeleton className="h-20 w-full rounded-md" />
-          <Skeleton className="h-20 w-full rounded-md" />
-          <Skeleton className="h-20 w-full rounded-md" />
-          <Skeleton className="h-20 w-full rounded-md" />
-        </div>
-      )}
 
       {!loading && !error && leaves.length === 0 && (
         <div className="flex flex-col items-center justify-center py-16 gap-1">

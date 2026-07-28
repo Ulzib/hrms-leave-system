@@ -40,9 +40,9 @@ const RequestLists = ({ selectedDate }: RequestListsProps) => {
   useEffect(() => {
     const fetchLeaves = async () => {
       try {
-        setLoading(true);
         const res = await api.get("/leave/my-request");
         setLeaves(res.data);
+        setLoading(true);
       } catch (err) {
         console.error(err);
       } finally {
@@ -83,11 +83,9 @@ const RequestLists = ({ selectedDate }: RequestListsProps) => {
       skeletons.push(
         <div key={i} className="flex flex-col gap-1">
           <Skeleton className="h-6 w-24" />
-          <Skeleton className="h-20 w-full rounded-xl" />
         </div>,
       );
     }
-    return <div className="flex flex-col gap-5">{skeletons}</div>;
   }
 
   if (filteredLeaves.length === 0) {

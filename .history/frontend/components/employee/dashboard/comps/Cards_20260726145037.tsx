@@ -1,6 +1,5 @@
 "use client";
 import { Card, CardContent } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
 import api from "@/lib/axios";
 import { useEffect, useState } from "react";
 
@@ -32,15 +31,7 @@ const Cards = () => {
 
   if (loading) {
     const skeletons = [];
-    for (let i = 0; i < 3; i++) {
-      skeletons.push(
-        <Skeleton
-          key={i}
-          className="flex-1 max-w-52 h-28 border border-border"
-        />,
-      );
-    }
-    return <div className="flex gap-4">{skeletons}</div>;
+    for (let i = 0; i < 3; i++) {}
   }
 
   return (

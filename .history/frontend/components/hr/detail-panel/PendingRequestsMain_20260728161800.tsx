@@ -31,7 +31,6 @@ const PendingRequestsMain = () => {
   const [rejectModalOpen, setRejectModalOpen] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
   const [page, setPage] = useState(1);
-  const [skeLoading, setSkeLoading] = useState(true);
 
   //torol filter-t sonogdson status-ud, tednii too
   const [selectedStatuses, setSelectedStatuses] = useState<StatusValue[]>([]);
@@ -52,6 +51,14 @@ const PendingRequestsMain = () => {
     setSelectedStatuses(stats);
     setPage(1);
   };
+
+  if (loading) {
+    return (
+      <div className="rounded-xl border bg-white dark:bg-gray-200 p-6 text-sm text-muted-foreground">
+        <Skeleton />
+      </div>
+    );
+  }
 
   return (
     <div className="w-full flex flex-col gap-2 ">
@@ -98,7 +105,6 @@ const PendingRequestsMain = () => {
             currentPage={page}
             onPageChange={setPage}
             refreshKey={refreshKey}
-            onLoadingChange={setSkeLoading}
           />
         </div>
         <div className="w-full">
@@ -113,10 +119,6 @@ const PendingRequestsMain = () => {
                 setRejectModalOpen(true);
               }}
             />
-          ) : skeLoading ? (
-            <div className="rounded-xl border bg-white dark:bg-gray-200 p-6">
-              <Skeleton className="h-40 w-full" />
-            </div>
           ) : (
             <div className="rounded-xl border bg-white dark:bg-gray-200 p-6 text-sm text-muted-foreground">
               Хүсэлтээ сонгоно уу

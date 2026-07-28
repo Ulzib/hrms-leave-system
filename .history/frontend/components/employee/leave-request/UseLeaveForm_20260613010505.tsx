@@ -16,14 +16,12 @@ const useLeaveForm = () => {
   const [balances, setBalances] = useState<LeaveBalance[]>([]);
   const [managers, setManagers] = useState<Manager[]>([]);
   const [loading, setLoading] = useState(false);
-  const [pageLoading, setPageLoading] = useState(true);
   const [showSuccess, setShowSuccess] = useState(false);
   const [file, setFile] = useState<File | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setPageLoading(true);
         const [typesRes, balancesRes, managersRes] = await Promise.all([
           api.get<RequestType[]>("/leave/types"),
           api.get<LeaveBalance[]>("/leave/balance"),
@@ -34,8 +32,6 @@ const useLeaveForm = () => {
         setManagers(managersRes.data);
       } catch (err) {
         console.error("Fetch error:", err);
-      } finally {
-        setPageLoading(false);
       }
     };
     fetchData();
@@ -106,7 +102,6 @@ const useLeaveForm = () => {
     balances,
     managers,
     loading,
-    pageLoading,
     showSuccess,
     file,
     isRemoteWork,

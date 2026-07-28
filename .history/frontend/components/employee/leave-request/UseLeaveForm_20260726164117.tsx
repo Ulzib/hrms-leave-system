@@ -23,7 +23,6 @@ const useLeaveForm = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setPageLoading(true);
         const [typesRes, balancesRes, managersRes] = await Promise.all([
           api.get<RequestType[]>("/leave/types"),
           api.get<LeaveBalance[]>("/leave/balance"),
@@ -34,8 +33,6 @@ const useLeaveForm = () => {
         setManagers(managersRes.data);
       } catch (err) {
         console.error("Fetch error:", err);
-      } finally {
-        setPageLoading(false);
       }
     };
     fetchData();
@@ -106,7 +103,6 @@ const useLeaveForm = () => {
     balances,
     managers,
     loading,
-    pageLoading,
     showSuccess,
     file,
     isRemoteWork,

@@ -8,7 +8,6 @@ import EmployeeTable from "./table/EmployeeTable";
 import api from "@/lib/axios";
 import AddEmployeeModal from "./modal/AddEmployeeModal";
 import PromoteModal from "./modal/PromoteModal";
-import EmployeeTableSkeleton from "./table/EmployeeTableSkeleton";
 
 const EmployeesListMain = () => {
   const now = new Date();
@@ -58,7 +57,7 @@ const EmployeesListMain = () => {
         </div>
       </div>
       {loading ? (
-        <EmployeeTableSkeleton />
+        <p className="text-sm text-muted-foreground">Ачааллаж байна...</p>
       ) : (
         <EmployeeTable employees={employees} onPromoteClick={setGetPromote} />
       )}

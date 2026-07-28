@@ -79,8 +79,7 @@ const LeaveCalendarMain = () => {
         <div className="flex flex-col gap-1">
           <Skeleton className="h-20 w-full rounded-md" />
           <Skeleton className="h-20 w-full rounded-md" />
-          <Skeleton className="h-20 w-full rounded-md" />
-          <Skeleton className="h-20 w-full rounded-md" />
+
           <Skeleton className="h-20 w-full rounded-md" />
         </div>
       )}

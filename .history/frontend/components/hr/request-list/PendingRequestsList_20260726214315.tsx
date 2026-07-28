@@ -38,7 +38,6 @@ interface PendingRequestListProps {
   currentPage: number;
   onPageChange: (page: number) => void;
   refreshKey: number;
-  onLoadingChange: (loading: boolean) => void;
 }
 const PAGE_SIZE = 10;
 
@@ -52,7 +51,6 @@ const PendingRequestsList = ({
   currentPage,
   onPageChange,
   refreshKey,
-  onLoadingChange,
 }: PendingRequestListProps) => {
   const [requests, setRequests] = useState<LeaveRequestItem[]>([]);
   const { readIds, markRead } = useReadRequestIds();
@@ -62,7 +60,6 @@ const PendingRequestsList = ({
     const fetchReqs = async () => {
       try {
         setLoading(true);
-        onLoadingChange(true);
         const res = await api.get("/leave/all-requests");
         setRequests(res.data);
       } catch (err) {
@@ -70,11 +67,10 @@ const PendingRequestsList = ({
         toast.error("Чөлөөний хүсэлтүүд татахад алдаа гарлаа");
       } finally {
         setLoading(false);
-        onLoadingChange(false);
       }
     };
     fetchReqs();
-  }, [refreshKey, onLoadingChange]);
+  }, [refreshKey]);
   //Nereer haih, ognooni limiteer shuuh
   let filteredReqs = requests.filter((req) =>
     req.user.username.toLowerCase().includes(search.toLowerCase()),

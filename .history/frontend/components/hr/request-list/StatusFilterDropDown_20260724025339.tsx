@@ -63,7 +63,7 @@ const StatusFilterDropDown = ({
     }
   };
 
-  //button dr haruulah badge. 2s deesh songovol niit gj bichne
+  //button dr haruulah badge. 2s deesh songovol Niit gj bichne
   let selectLabel = null;
   if (selectedStatuses.length > 2) {
     selectLabel = (

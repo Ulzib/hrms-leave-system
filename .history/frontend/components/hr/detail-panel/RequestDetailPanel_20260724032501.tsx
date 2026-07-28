@@ -119,7 +119,7 @@ const RequestDetailPanel = ({
             : request.reason}
         </p>
       </div>
-      {/* Tatgalzah,zovshooroh button. pending bish bol disabled bln */}
+      {/* Tatgalzah/zovshooroh tovch. PENDING bish bol disabled blno */}
       <div className="flex items-center justify-end gap-2">
         <Button
           variant="outline"
