@@ -25,7 +25,11 @@ const CategoryField = ({
 }: CategoryProps) => {
   const selected = requestTypes.find((t) => t.id === value);
   const balance = balances.find((b) => b.name.trim() === selected?.name.trim());
-
+  console.log("selected name:", selected?.name);
+  console.log(
+    "balance names:",
+    balances.map((b) => b.name),
+  );
   return (
     <div className="w-full flex flex-col gap-2 ">
       <Label htmlFor="category" className="flex gap-0">

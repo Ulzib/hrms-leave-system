@@ -46,7 +46,7 @@ const RequestLists = ({ selectedDate }: RequestListsProps) => {
         setLeaves(res.data);
       } catch (err) {
         console.error(err);
-        toast.error("Хүсэлтүүд татахад алдаа гарлаа");
+        toast.error("");
       } finally {
         setLoading(false);
       }

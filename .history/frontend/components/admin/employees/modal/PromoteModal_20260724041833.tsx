@@ -7,7 +7,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Spinner } from "@/components/ui/spinner";
 import api from "@/lib/axios";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -72,7 +71,6 @@ const PromoteModal = ({
             onClick={handlePromote}
             className="py-2 px-4 gap-2 rounded-md hover:bg-gray-800/80"
           >
-            {submit && <Spinner className="text-white" />}
             <p className="text-sm font-medium leading-5 tracking-normal">
               Зөвшөөрөх
             </p>

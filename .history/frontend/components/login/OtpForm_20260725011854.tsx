@@ -21,7 +21,6 @@ import { useState } from "react";
 import api from "@/lib/axios";
 import { Spinner } from "../ui/spinner";
 import Image from "next/image";
-import { toast } from "sonner";
 
 const OtpForm = () => {
   const router = useRouter();
@@ -56,7 +55,6 @@ const OtpForm = () => {
       if (err instanceof Error) {
         setError(err.message || "Алдаа гарлаа");
       }
-      toast.error("Код буруу байна");
     } finally {
       setLoading(false);
     }
@@ -108,7 +106,7 @@ const OtpForm = () => {
               <InputOTPSlot index={3} />
             </InputOTPGroup>
           </InputOTP>
-
+          {error && <p className="text-sm text-red-500">{error}</p>}
           <FieldDescription>{email} руу код илгээгдсэн</FieldDescription>
         </Field>
       </CardContent>

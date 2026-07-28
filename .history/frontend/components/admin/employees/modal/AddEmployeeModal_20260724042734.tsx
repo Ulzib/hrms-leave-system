@@ -12,7 +12,6 @@ import { format } from "date-fns";
 import { useState } from "react";
 import { toast } from "sonner";
 import AddEmployeeForm from "../form/AddEmployeeForm";
-import { Spinner } from "@/components/ui/spinner";
 
 interface AddEmpModalProps {
   open: boolean;
@@ -107,7 +106,6 @@ const AddEmployeeModal = ({ open, onClose, onSuccess }: AddEmpModalProps) => {
             onClick={handleSubmit}
             className="py-4 px-6 gap-2 rounded-md transition-all duration-200 ease-in-out hover:bg-gray-800/80 dark:hover:bg-neutral-600 dark:hover:text-gray-200 hover:scale-[1.02] active:scale-[0.98]"
           >
-            {submit && <Spinner className="text-white" />}
             <p className="text-sm font-medium leading-5 tracking-normal">
               Нэмэх
             </p>

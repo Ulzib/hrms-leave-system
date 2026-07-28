@@ -13,6 +13,7 @@ interface RoleScanProps {
 const RoleScan = ({ allowedRole, children }: RoleScanProps) => {
   const { user } = useAuth();
   const router = useRouter();
+  const [checking, setChecking] = useState(true);
 
   useEffect(() => {
     const savedToken = localStorage.getItem("token");
@@ -35,7 +36,7 @@ const RoleScan = ({ allowedRole, children }: RoleScanProps) => {
     if (user.role === "ADMIN") {
       homePath = "/admin-dashboard";
     } else if (user.role === "HR") {
-      homePath = "/leaves";
+      homePath = "/leaves;";
     } else if (user.role === "EMPLOYEE") {
       homePath = "/employee-dashboard";
     }
@@ -51,11 +52,9 @@ const RoleScan = ({ allowedRole, children }: RoleScanProps) => {
   }
 
   if (!allowedRole.includes(user.role)) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <Spinner />
-      </div>
-    );
+    <div className="flex min-h-screen items-center justify-center">
+      <Spinner />
+    </div>;
   }
   return <>{children}</>;
 };

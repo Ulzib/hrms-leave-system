@@ -73,6 +73,7 @@ const PromoteModal = ({
             className="py-2 px-4 gap-2 rounded-md hover:bg-gray-800/80"
           >
             {submit && <Spinner className="text-white" />}
+
             <p className="text-sm font-medium leading-5 tracking-normal">
               Зөвшөөрөх
             </p>

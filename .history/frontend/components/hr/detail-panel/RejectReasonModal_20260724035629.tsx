@@ -13,7 +13,6 @@ import {
 } from "../../ui/dialog";
 import { Textarea } from "../../ui/textarea";
 import { Button } from "../../ui/button";
-import { Spinner } from "@/components/ui/spinner";
 
 interface RejectReasonModalProps {
   open: boolean;
@@ -87,7 +86,6 @@ const RejectReasonModal = ({
             onClick={handleReject}
             className="py-2 px-4 gap-2 rounded-md hover:bg-gray-800/80 dark:hover:bg-gray-400"
           >
-            {submit && <Spinner className="text-white" />}
             <p className="text-sm font-medium leading-5 tracking-normal ">
               Илгээх
             </p>

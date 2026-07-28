@@ -30,7 +30,7 @@ const EmployeesListMain = () => {
       setEmployees(res.data);
     } catch (err) {
       console.error(err);
-      toast.error("Ажилчдын жагсаалт татахад алдаа гарлаа");
+      toast.error("");
     } finally {
       setLoading(false);
     }

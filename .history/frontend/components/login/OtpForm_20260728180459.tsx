@@ -108,7 +108,7 @@ const OtpForm = () => {
               <InputOTPSlot index={3} />
             </InputOTPGroup>
           </InputOTP>
-
+          {error && <p className="text-sm text-red-500">{error}</p>}
           <FieldDescription>{email} руу код илгээгдсэн</FieldDescription>
         </Field>
       </CardContent>

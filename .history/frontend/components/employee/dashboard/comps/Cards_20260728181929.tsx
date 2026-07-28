@@ -20,6 +20,7 @@ const Cards = () => {
     const fetchBalance = async () => {
       try {
         const res = await api.get("/leave/balance");
+
         setBalance(res.data);
       } catch (err) {
         console.error(err);

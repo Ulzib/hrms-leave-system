@@ -13,6 +13,7 @@ interface RoleScanProps {
 const RoleScan = ({ allowedRole, children }: RoleScanProps) => {
   const { user } = useAuth();
   const router = useRouter();
+  const [checking, setChecking] = useState(true);
 
   useEffect(() => {
     const savedToken = localStorage.getItem("token");
