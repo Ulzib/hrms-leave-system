@@ -57,12 +57,14 @@ export const verifyOtp = asyncHandler(async (req: Request, res: Response) => {
 
   if (user.otp !== otp) {
     res.status(400).json({ message: "нэг удаагийн код буруу байна" });
+    return;
   }
 
   if (new Date() > user.otpExpiry) {
     res
       .status(400)
       .json({ message: "нэг удаагийн кодын хугацаа дууссан байна" });
+    return;
   }
 
   //otp ashiglasni dra ustgah
