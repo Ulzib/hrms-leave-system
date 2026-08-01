@@ -30,9 +30,10 @@ router.get("/balance", protect, async (req, res) => {
   const userId = req.user!.id;
 
   const types = await prisma.requestType.findMany();
+  type RequestTypeRow = (typeof types)[number];
 
   const balance = await Promise.all(
-    types.map(async (type) => {
+    types.map(async (type: RequestTypeRow) => {
       const now = new Date();
       //sar, jiliin ehnees tootsoh
       const dateFilter =
