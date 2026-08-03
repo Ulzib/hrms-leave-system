@@ -12,7 +12,11 @@ const inter = Inter({
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <html lang="mn" className={cn("font-sans", inter.variable)}>
+    <html
+      lang="mn"
+      className={cn("font-sans", inter.variable)}
+      suppressHydrationWarning
+    >
       <body suppressHydrationWarning>
         <ThemeProvider>
           <AuthProvider>

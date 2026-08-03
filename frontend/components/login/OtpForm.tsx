@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/input-otp";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import api from "@/lib/axios";
 import { Spinner } from "../ui/spinner";
 import Image from "next/image";
@@ -30,11 +30,14 @@ const OtpForm = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  //sessionStorage-s email avna, zovhon client der l ajillana
-  const [email] = useState(() => {
-    if (typeof window === "undefined") return "";
-    return sessionStorage.getItem("otp_email") || "";
-  });
+  //sessionStorage bol зөвхөн browser-d байдаг "gadaad эх сурвалж" тул
+  //useSyncExternalStore ашигладаг - энэ бол React-ийн өөрийнх нь зөвлөж
+  //буй арга (useEffect дотор setState дуудахаас зайлсхийнэ)
+  const email = useSyncExternalStore(
+    () => () => {}, // sessionStorage өөрчлөгдөхгүй тул subscribe хоосон
+    () => sessionStorage.getItem("otp_email") || "", // client дээрх утга
+    () => "", // server дээрх утга
+  );
 
   //otp shalgh
   const handleSubmit = async () => {
@@ -109,7 +112,7 @@ const OtpForm = () => {
             </InputOTPGroup>
           </InputOTP>
 
-          <FieldDescription>{email} руу код илгээгдсэн</FieldDescription>
+          <FieldDescription>{`${email} руу код илгээгдсэн`}</FieldDescription>
         </Field>
       </CardContent>
       <CardFooter>
