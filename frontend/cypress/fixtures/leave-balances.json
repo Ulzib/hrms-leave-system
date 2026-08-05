@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Чөлөө",
+    "limit": 5,
+    "used": 1,
+    "remaining": 4
+  },
+  {
+    "name": "Цалинтай чөлөө",
+    "limit": 5,
+    "used": 0,
+    "remaining": 5
+  },
+  {
+    "name": "Зайнаас ажиллах",
+    "limit": 5,
+    "used": 2,
+    "remaining": 3
+  }
+]

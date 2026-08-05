@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "name": "Чөлөө",
+    "limit": 5,
+    "period": "YEARLY"
+  },
+  {
+    "id": 2,
+    "name": "Цалинтай чөлөө",
+    "limit": 5,
+    "period": "YEARLY"
+  },
+  {
+    "id": 3,
+    "name": "Зайнаас ажиллах",
+    "limit": 5,
+    "period": "MONTHLY"
+  }
+]
