@@ -21,6 +21,7 @@ import { useState, useSyncExternalStore } from "react";
 import api from "@/lib/axios";
 import { Spinner } from "../ui/spinner";
 import { toast } from "sonner";
+import BigPineIcon from "../svg/BigPineIcon";
 
 const OtpForm = () => {
   const router = useRouter();
@@ -85,7 +86,7 @@ const OtpForm = () => {
               Дахин илгээх
             </Button>
           </div>
-
+          <BigPineIcon />
           <InputOTP
             maxLength={4}
             id="otp-verification"

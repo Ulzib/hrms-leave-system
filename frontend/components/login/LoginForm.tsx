@@ -12,6 +12,7 @@ import { Spinner } from "../ui/spinner";
 import { toast } from "sonner";
 import axios from "axios";
 import Image from "next/image";
+import BigPineIcon from "../svg/BigPineIcon";
 
 interface LoginFormProps extends React.ComponentPropsWithoutRef<"div"> {
   className?: string;
@@ -64,15 +65,8 @@ const LoginForm = ({ className, ...props }: LoginFormProps) => {
         </CardHeader>
         <CardContent>
           <div>
-            <FieldGroup>
-              <Image
-                src="/lcube.jpg"
-                alt="cube"
-                width={180}
-                height={180}
-                className="mx-auto"
-                priority
-              />
+            <FieldGroup className="flex flex-col items-center">
+              <BigPineIcon />
               <Field>
                 <FieldLabel
                   htmlFor="email"
@@ -95,7 +89,7 @@ const LoginForm = ({ className, ...props }: LoginFormProps) => {
                 onClick={handleSubmit}
                 type="submit"
                 disabled={loading}
-                className="py-5 px-4 gap-2 rounded-md"
+                className="w-full py-5 px-4 gap-2 rounded-md"
               >
                 {loading ? <Spinner /> : "Нэвтрэх"}
               </Button>
