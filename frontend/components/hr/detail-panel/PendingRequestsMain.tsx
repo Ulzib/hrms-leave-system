@@ -40,7 +40,6 @@ const PendingRequestsMain = () => {
     PENDING: 0,
     REJECTED: 0,
   });
-  const [loading, setLoading] = useState(true);
 
   const handleStatusSuccess = () => {
     setRefreshKey((prev) => prev + 1);

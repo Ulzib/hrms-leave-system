@@ -8,7 +8,6 @@ import {
 } from "@/components/ui/select";
 import { TIME_OPTION } from "@/lib/constants";
 import { LeaveFormData } from "@/lib/types";
-import { ChevronsUpDown } from "lucide-react";
 
 interface TimeRangeProps {
   startTime: string;

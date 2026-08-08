@@ -20,7 +20,7 @@ const UserMenu = () => {
   };
 
   return (
-    <Popover>
+    <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <button className="cursor-pointer rounded-full">
           <Image src="/Avatar.png" alt="Avatar" width={36} height={36} />

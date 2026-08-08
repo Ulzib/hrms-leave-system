@@ -14,7 +14,6 @@ import {
   useReadRequestIds,
 } from "./StatusFilterDropDown";
 import PendingReqListSkeleton from "./PendingReqListSkeleton";
-
 export interface LeaveRequestItem {
   id: number;
   days: number;
@@ -27,7 +26,6 @@ export interface LeaveRequestItem {
   user: { id: number; username: string; email: string };
   requestType: { name: string };
 }
-
 interface PendingRequestListProps {
   search: string;
   selectedDate: DateRange | undefined;
@@ -41,7 +39,6 @@ interface PendingRequestListProps {
   onLoadingChange: (loading: boolean) => void;
 }
 const PAGE_SIZE = 10;
-
 const PendingRequestsList = ({
   search,
   selectedDate,
@@ -103,7 +100,7 @@ const PendingRequestsList = ({
       PENDING: pendingCount,
       REJECTED: rejectedCount,
     });
-  }, [requests, search, selectedDate]);
+  }, [filteredReqs, onCountsChange]);
   //statusaar shuuh
   if (selectedStatuses.length > 0) {
     filteredReqs = filteredReqs.filter((req) =>

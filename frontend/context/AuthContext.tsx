@@ -26,9 +26,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const savedToken = localStorage.getItem("token");
 
     if (savedUser) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- localStorage-c synk hiij bgaa
       setUser(JSON.parse(savedUser));
     }
     if (savedToken) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- localStorage-c synk hiij bgaa
       setToken(savedToken);
     }
   }, []);

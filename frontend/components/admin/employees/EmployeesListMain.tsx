@@ -13,8 +13,8 @@ import { toast } from "sonner";
 
 const EmployeesListMain = () => {
   const now = new Date();
-  const [month, setMonth] = useState(now.getMonth() + 1);
-  const [year, setYear] = useState(now.getFullYear());
+  const month = now.getMonth() + 1;
+  const year = now.getFullYear();
   const [employees, setEmployees] = useState<AdminEmployeeRow[]>([]);
   const [loading, setLoading] = useState(false);
   const [addModalOpen, setAddModalOpen] = useState(false);

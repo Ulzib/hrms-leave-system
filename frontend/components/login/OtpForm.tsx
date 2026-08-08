@@ -20,7 +20,6 @@ import { useAuth } from "@/context/AuthContext";
 import { useState, useSyncExternalStore } from "react";
 import api from "@/lib/axios";
 import { Spinner } from "../ui/spinner";
-import Image from "next/image";
 import { toast } from "sonner";
 
 const OtpForm = () => {
@@ -28,11 +27,7 @@ const OtpForm = () => {
   const { login } = useAuth();
   const [otp, setOtp] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
 
-  //sessionStorage bol зөвхөн browser-d байдаг "gadaad эх сурвалж" тул
-  //useSyncExternalStore ашигладаг - энэ бол React-ийн өөрийнх нь зөвлөж
-  //буй арга (useEffect дотор setState дуудахаас зайлсхийнэ)
   const email = useSyncExternalStore(
     () => () => {}, // sessionStorage өөрчлөгдөхгүй тул subscribe хоосон
     () => sessionStorage.getItem("otp_email") || "", // client дээрх утга
@@ -42,7 +37,6 @@ const OtpForm = () => {
   //otp shalgh
   const handleSubmit = async () => {
     setLoading(true);
-    setError("");
     try {
       const res = await api.post("/auth/verify-otp", { email, otp });
       //AuthContext-d hadgalna
@@ -55,10 +49,7 @@ const OtpForm = () => {
       } else {
         router.push("/employee-dashboard");
       }
-    } catch (err: unknown) {
-      if (err instanceof Error) {
-        setError(err.message || "Алдаа гарлаа");
-      }
+    } catch {
       toast.error("Код буруу байна");
     } finally {
       setLoading(false);
@@ -68,11 +59,9 @@ const OtpForm = () => {
   const handleResend = async () => {
     try {
       await api.post("auth/send-otp", { email });
-      setError("");
-    } catch (err: unknown) {
-      if (err instanceof Error) {
-        setError(err.message || "Алдаа гарлаа");
-      }
+      toast.success("Код дахин илгээгдлээ");
+    } catch {
+      toast.error("Код дахин илгээхэд алдаа гарлаа");
     }
   };
   return (
