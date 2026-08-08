@@ -1,0 +1,83 @@
+name: CI
+
+# ямар үед энэ workflow ажиллах вэ
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  # ===== BACKEND: eslint + jest test =====
+  backend:
+    name: Backend - lint & test
+    runs-on: ubuntu-latest
+
+    # доорх бүх "run" алхмууд backend хавтас дотор ажиллана
+    defaults:
+      run:
+        working-directory: backend
+
+    env:
+      DATABASE_URL: "postgresql://ci_user:ci_pass@localhost:5432/ci_db"
+      JWT_SECRET: "ci-test-secret"
+      EMAIL_USER: "ci-test@example.com"
+      EMAIL_PASS: "ci-test-pass"
+
+    steps:
+      # 1. github repo-s code iig tataj avah
+      - name: Кодыг татах (checkout)
+        uses: actions/checkout@v4
+
+      # 2. node.js suulgah, npm cache ashiglaj hurdasgh
+      - name: Node.js тохируулах
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: backend/package-lock.json
+
+      # 3. package.json deerh buh sang suulgh
+      - name: Package-үүдийг суулгах
+        run: npm ci
+
+      # 4. prisma schema-s TypeScript type/client uusgh
+      - name: Prisma client generate хийх
+        run: npx prisma generate
+
+      # 5. eslint-eer code shalgh (backend/package.json dahi "lint" script)
+      - name: ESLint-ээр шалгах
+        run: npm run lint
+
+      # 6. jest unit test-uudiig ajiluulah
+      - name: Jest test ажиллуулах
+        run: npm test
+
+  # ===== FRONTEND: eslint + next build =====
+  frontend:
+    name: Frontend - lint & build
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: frontend
+
+    steps:
+      - name: Кодыг татах (checkout)
+        uses: actions/checkout@v4
+
+      - name: Node.js тохируулах
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Package-үүдийг суулгах
+        run: npm ci
+
+      - name: ESLint-ээр шалгах
+        run: npm run lint
+
+      - name: Next.js build хийж шалгах
+        run: npm run build
