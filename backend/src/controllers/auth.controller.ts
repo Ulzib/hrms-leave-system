@@ -21,7 +21,7 @@ export const sendOtp = asyncHandler(async (req: Request, res: Response) => {
     data: { otp, otpExpiry },
   });
 
-  //mail ilgeeh - Brevo ashiglana (HTTPS API, aliv humuu ruu ilgeeh bolomjtoi)
+  //mail ilgeeh
   const emailRes = await fetch("https://api.brevo.com/v3/smtp/email", {
     method: "POST",
     headers: {

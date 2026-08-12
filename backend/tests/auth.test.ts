@@ -6,13 +6,14 @@ jest.mock("nodemailer");
 
 import app from "../src/app";
 import prisma from "../src/lib/prisma";
-import nodemailer from "nodemailer";
 
 //mail ilgeeh duuraimal func
-const mockSendMail = jest.fn().mockResolvedValue(true);
-(nodemailer.createTransport as jest.Mock) = jest.fn().mockReturnValue({
-  sendMail: mockSendMail,
+const mockSendMail = jest.fn().mockResolvedValue({
+  ok: true,
+  text: jest.fn().mockResolvedValue(""),
 });
+
+global.fetch = mockSendMail as unknown as typeof fetch;
 
 describe("POST /api/auth/send-otp", () => {
   it("Бүртгэлгүй имэйл бол 400 буцна", async () => {
