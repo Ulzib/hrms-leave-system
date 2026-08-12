@@ -2,7 +2,6 @@ import prisma from "../lib/prisma";
 import asyncHandler from "../middleware/asyncHandler";
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import nodemailer from "nodemailer";
 
 export const sendOtp = asyncHandler(async (req: Request, res: Response) => {
   const { email } = req.body;
@@ -22,21 +21,28 @@ export const sendOtp = asyncHandler(async (req: Request, res: Response) => {
     data: { otp, otpExpiry },
   });
 
-  //mail ilgeeh
-  const transport = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
+  //mail ilgeeh - Brevo ashiglana (HTTPS API, aliv humuu ruu ilgeeh bolomjtoi)
+  const emailRes = await fetch("https://api.brevo.com/v3/smtp/email", {
+    method: "POST",
+    headers: {
+      "api-key": process.env.BREVO_API_KEY as string,
+      "Content-Type": "application/json",
+      Accept: "application/json",
     },
+    body: JSON.stringify({
+      sender: { email: process.env.EMAIL_USER },
+      to: [{ email }],
+      subject: "Нэвтрэх нэг удаагийн код",
+      textContent: `Таны нэвтрэх код: ${otp}\n\nкод 10 минутын дараа хүчингүй болно.`,
+    }),
   });
 
-  await transport.sendMail({
-    from: process.env.EMAIL_USER,
-    to: email,
-    subject: "Нэвтрэх нэг удаагийн код",
-    text: `Таны нэвтрэх код: ${otp}\n\nкод 10 минутын дараа хүчингүй болно.`,
-  });
+  if (!emailRes.ok) {
+    const errorBody = await emailRes.text();
+    console.error("Brevo алдаа:", errorBody);
+    res.status(500).json({ message: "Имэйл илгээхэд алдаа гарлаа" });
+    return;
+  }
 
   res.json({ message: "Код имэйл рүү илгээгдлээ" });
 });
