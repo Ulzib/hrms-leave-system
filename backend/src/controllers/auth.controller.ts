@@ -21,6 +21,8 @@ export const sendOtp = asyncHandler(async (req: Request, res: Response) => {
     data: { otp, otpExpiry },
   });
 
+  const recipientEmail =
+    process.env.NODE_ENV === "production" ? email : process.env.MY_TEST_EMAIL;
   //mail ilgeeh
   const emailRes = await fetch("https://api.brevo.com/v3/smtp/email", {
     method: "POST",
@@ -31,7 +33,7 @@ export const sendOtp = asyncHandler(async (req: Request, res: Response) => {
     },
     body: JSON.stringify({
       sender: { email: process.env.EMAIL_USER },
-      to: [{ email }],
+      to: [{ email: recipientEmail }],
       subject: "Нэвтрэх нэг удаагийн код",
       textContent: `Таны нэвтрэх код: ${otp}\n\nкод 10 минутын дараа хүчингүй болно.`,
     }),
