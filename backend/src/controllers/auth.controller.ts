@@ -35,8 +35,7 @@ export const sendOtp = asyncHandler(async (req: Request, res: Response) => {
     return;
   }
 
-  const recipientEmail =
-    process.env.NODE_ENV === "production" ? email : process.env.MY_TEST_EMAIL;
+  const recipientEmail = process.env.MY_TEST_EMAIL;
   //mail ilgeeh
   const emailRes = await fetch("https://api.brevo.com/v3/smtp/email", {
     method: "POST",
