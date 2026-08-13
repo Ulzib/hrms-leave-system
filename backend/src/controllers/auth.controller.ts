@@ -32,6 +32,7 @@ export const sendOtp = asyncHandler(async (req: Request, res: Response) => {
 
   if (demoLogin) {
     res.json({ message: "Код имэйл рүү илгээгдлээ" });
+    return;
   }
 
   const recipientEmail =
