@@ -46,6 +46,30 @@ describe("POST /api/auth/send-otp", () => {
   });
 });
 
+it.each(["admin@gmail.com", "manager@gmail.com", "employee@gmail.com"])(
+  "demo хаяг (%s) бол мэйл явуулахгүй, otp нь 1234 болно",
+  async (demoEmail) => {
+    (prisma.user.findUnique as jest.Mock).mockResolvedValue({
+      id: 1,
+      email: demoEmail,
+    });
+    (prisma.user.update as jest.Mock).mockResolvedValue({});
+    mockSendMail.mockClear();
+
+    const res = await request(app)
+      .post("/api/auth/send-otp")
+      .send({ email: demoEmail });
+
+    expect(res.status).toBe(200);
+    expect(mockSendMail).not.toHaveBeenCalled();
+    expect(prisma.user.update).toHaveBeenCalledWith(
+      expect.objectContaining({
+        where: { email: demoEmail },
+        data: expect.objectContaining({ otp: "1234" }),
+      }),
+    );
+  },
+);
 describe("POST /api/auth/verify-otp", () => {
   it("Бүртгэлгүй имэйл бол 404 буцна", async () => {
     (prisma.user.findUnique as jest.Mock).mockResolvedValue(null);

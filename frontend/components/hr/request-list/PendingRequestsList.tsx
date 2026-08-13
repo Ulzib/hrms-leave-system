@@ -1,7 +1,7 @@
 "use client";
 
 import api from "@/lib/axios";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { DateRange } from "react-day-picker";
 import { toast } from "sonner";
 import { Card } from "../../ui/card";
@@ -73,40 +73,47 @@ const PendingRequestsList = ({
     fetchReqs();
   }, [refreshKey, onLoadingChange]);
   //Nereer haih, ognooni limiteer shuuh
-  let filteredReqs = requests.filter((req) =>
-    req.user.username.toLowerCase().includes(search.toLowerCase()),
+  const searchFilterReqs = useMemo(
+    () =>
+      requests.filter((req) =>
+        req.user.username.toLowerCase().includes(search.toLowerCase()),
+      ),
+    [requests, search],
   );
 
-  if (selectedDate?.from) {
+  const dateFilterReqs = useMemo(() => {
+    if (!selectedDate?.from) return searchFilterReqs;
     const from = selectedDate.from;
     const to = selectedDate.to ? selectedDate.to : from;
-    filteredReqs = filteredReqs.filter((req) => {
+    return searchFilterReqs.filter((req) => {
       const date = new Date(req.startDate);
       return date >= from && date <= to;
     });
-  }
+  }, [searchFilterReqs, selectedDate]);
+
   //type tus buriin too hdn bhiig tootsoloh
   useEffect(() => {
     let approvedCount = 0;
     let pendingCount = 0;
     let rejectedCount = 0;
-    for (let i = 0; i < filteredReqs.length; i++) {
-      if (filteredReqs[i].status === "APPROVED") approvedCount++;
-      if (filteredReqs[i].status === "PENDING") pendingCount++;
-      if (filteredReqs[i].status === "REJECTED") rejectedCount++;
+    for (let i = 0; i < dateFilterReqs.length; i++) {
+      if (dateFilterReqs[i].status === "APPROVED") approvedCount++;
+      if (dateFilterReqs[i].status === "PENDING") pendingCount++;
+      if (dateFilterReqs[i].status === "REJECTED") rejectedCount++;
     }
     onCountsChange({
       APPROVED: approvedCount,
       PENDING: pendingCount,
       REJECTED: rejectedCount,
     });
-  }, [filteredReqs, onCountsChange]);
+  }, [dateFilterReqs, onCountsChange]);
   //statusaar shuuh
-  if (selectedStatuses.length > 0) {
-    filteredReqs = filteredReqs.filter((req) =>
+  const filteredReqs = useMemo(() => {
+    if (selectedStatuses.length === 0) return dateFilterReqs;
+    return dateFilterReqs.filter((req) =>
       selectedStatuses.includes(req.status),
     );
-  }
+  }, [dateFilterReqs, selectedStatuses]);
   const totalCount = filteredReqs.length;
   const totalPages = Math.max(1, Math.ceil(totalCount / PAGE_SIZE));
   useEffect(() => {

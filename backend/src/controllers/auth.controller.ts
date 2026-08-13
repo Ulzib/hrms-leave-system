@@ -3,6 +3,12 @@ import asyncHandler from "../middleware/asyncHandler";
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 
+const DEMO_LOGIN_OTP: Record<string, string> = {
+  "admin@gmail.com": "1234",
+  "manager@gmail.com": "1234",
+  "employee@gmail.com": "1234",
+};
+
 export const sendOtp = asyncHandler(async (req: Request, res: Response) => {
   const { email } = req.body;
 
@@ -13,13 +19,20 @@ export const sendOtp = asyncHandler(async (req: Request, res: Response) => {
     return;
   }
 
-  const otp = Math.floor(1000 + Math.random() * 9000).toString();
+  const demoLogin = email in DEMO_LOGIN_OTP;
+  const otp = demoLogin
+    ? DEMO_LOGIN_OTP[email]
+    : Math.floor(1000 + Math.random() * 9000).toString();
   const otpExpiry = new Date(Date.now() + 10 * 60 * 1000);
 
   await prisma.user.update({
     where: { email },
     data: { otp, otpExpiry },
   });
+
+  if (demoLogin) {
+    res.json({ message: "Код имэйл рүү илгээгдлээ" });
+  }
 
   const recipientEmail =
     process.env.NODE_ENV === "production" ? email : process.env.MY_TEST_EMAIL;
